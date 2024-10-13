@@ -62,15 +62,11 @@ namespace Memory::tui {
     }
 
     void TerminalHelper::pushToTerminal(const std::vector<char> &framebuffer) {
-#ifdef _WIN32
-        // Not implemented
-#else
         std::string output;
         for (char c : framebuffer) {
             output += c;
         }
         std::cout << output;
-#endif
     }
 
 }
