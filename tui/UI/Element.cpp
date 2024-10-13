@@ -6,7 +6,7 @@ namespace Memory::tui{
         if(&element==this){
             throw std::invalid_argument("Cannot add self as child");
         }
-        children.push_back({x, y, true, element});
+        children.push_back({x, y, true, element,childernIndex});
         return childernIndex++;
     }
 

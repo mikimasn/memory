@@ -13,6 +13,7 @@ namespace Memory::tui {
         int y;
         bool visible;
         Element& element;
+        int id;
     };
     struct ElementParent{
         Element& element;
@@ -20,12 +21,12 @@ namespace Memory::tui {
         ElementParent(Element& parent, int childIndex) : element(parent), childIndex(childIndex){};
     };
     class Element {
+    protected:
         std::vector<ElementChild> children;
         int childernIndex = 0;
         ElementParent parent;
         void writeChildToFrameBuffer(const ElementChild& child, bool shouldRender=false);
         void notifyParent();
-    protected:
         std::vector<char> framebuffer;
         ElementSize currentsize;
     public:
