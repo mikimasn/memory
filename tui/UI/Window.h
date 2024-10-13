@@ -6,7 +6,9 @@ namespace Memory::tui{
     private:
         std::vector<int> focusStack;
     public:
-        explicit Window(): Element(TerminalHelper::getTerminalInfo()){};
+        explicit Window(): Element(TerminalHelper::getTerminalInfo()){
+            Memory::tui::TerminalHelper::setupTerminal();
+        };
         std::vector<char>& render(bool shouldNotifyParent) final;
         ElementSize offerSize(ElementSize size) final;
         void pushFocus(int index){

@@ -16,15 +16,6 @@ class TestElement : public Memory::tui::Element{
         }
 };
 int main() {
-    Memory::tui::TerminalHelper::setupTerminal();
-    Memory::tui::TerminalHelper::clearScreen();
-    auto terminalInfo = Memory::tui::TerminalHelper::getTerminalInfo();
-    if(terminalInfo.width==0 || terminalInfo.height==0){
-        terminalInfo = {80, 24};
-    }
-    const Memory::tui::ElementSize size = {terminalInfo.width, terminalInfo.height};
-    //print size
-//    std::cout << "Width: " << size.width << " Height: " << size.height << std::endl;
     Memory::tui::Window window;
     TestElement child({5, 5}, {window, window.addChild(child, 0, 0)});
     window.pushFocus(window.addChild(child, 0, 0));
