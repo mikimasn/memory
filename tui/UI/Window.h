@@ -2,9 +2,26 @@
 #include <stack>
 
 namespace Memory::tui{
+    class Sheet: public Element{
+    public:
+        explicit Sheet(const ElementParent parent): Element(TerminalHelper::getTerminalInfo(),parent){};
+        std::vector<char>& render(bool shouldNotifyParent) final{
+            framebuffer.assign(currentsize.width * currentsize.height, ' ');
+            return Element::render(shouldNotifyParent);
+        };
+        ElementSize offerSize(ElementSize size) final{
+            return currentsize;
+        };
+        InputActionResult handleInput(InputSignal& c) final{
+            return Element::handleInput(c);
+        };
+        void setFocus(bool focused) final {};
+    };
     class Window: public Element {
     private:
         std::vector<int> focusStack;
+    protected:
+        void pushToTerminal();
     public:
         explicit Window(): Element(TerminalHelper::getTerminalInfo()){
             Memory::tui::TerminalHelper::setupTerminal();
@@ -17,6 +34,11 @@ namespace Memory::tui{
         void popFocus(){
             focusStack.pop_back();
         };
+        InputActionResult handleInput(InputSignal& c) final{
+            return children[focusStack[focusStack.size()-1]].element.handleInput(c);
+        };
+        void setFocus(bool focused) final {};
 
+        void childRenderCallback(int index) final;
     };
 }

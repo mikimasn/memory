@@ -1,5 +1,5 @@
 #include <vector>
-#include "Input.h"
+#include "../Functional/Input.h"
 #include "../TerminalHelper.h"
 
 namespace Memory::tui {
@@ -21,6 +21,8 @@ namespace Memory::tui {
         ElementParent(Element& parent, int childIndex) : element(parent), childIndex(childIndex){};
     };
     class Element {
+    private:
+        void init();
     protected:
         std::vector<ElementChild> children;
         int childernIndex = 0;
@@ -29,20 +31,25 @@ namespace Memory::tui {
         void notifyParent();
         std::vector<char> framebuffer;
         ElementSize currentsize;
+        int focusIndex = -1;
     public:
         explicit Element(const ElementSize &size,const ElementParent &parent) : parent(parent),currentsize(size){
-            framebuffer.resize(size.width*size.height);
+            init();
         };
         explicit Element(const ElementSize &size) : parent(*this, -1),currentsize(size){
-            framebuffer.resize(size.width*size.height);
+            init();
         };
         explicit Element(const TerminalInfo &terminalInfo) : parent(*this, -1),currentsize({terminalInfo.width, terminalInfo.height}){
-            framebuffer.resize(terminalInfo.width*terminalInfo.height);
+            init();
+        };
+        explicit Element(const TerminalInfo &terminalInfo, const ElementParent &parent) : parent(parent),currentsize({terminalInfo.width, terminalInfo.height}){
+            init();
         };
         int addChild(Element& element, int x, int y);
+        virtual void setFocus(bool focused) = 0;
         ElementChild& getChild(int index);
         virtual std::vector<char>& render(bool shouldNotifyParent=true);
-        InputActionResult handleInput(char c);
+        virtual InputActionResult handleInput(InputSignal& c);
         ElementSize getSize(){
             return currentsize;
         };
@@ -50,7 +57,7 @@ namespace Memory::tui {
             return framebuffer;
         };
         virtual ElementSize offerSize(ElementSize size) = 0;
-        void childRenderCallback(int index);
+        virtual void childRenderCallback(int index);
     };
 
 }

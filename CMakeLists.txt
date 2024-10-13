@@ -8,8 +8,9 @@ add_executable(MemoryGejanci main.cpp
         tui/TerminalHelper.h
         tui/UI/Element.cpp
         tui/UI/Element.h
-        tui/UI/Input.h
+        tui/Functional/Input.h
         tui/UI/Window.cpp
         tui/UI/Window.h
         tui/UI/Window.h
+        tui/Functional/Input.cpp
 )
