@@ -1,5 +1,6 @@
 #include <vector>
 #include "Input.h"
+#include "../TerminalHelper.h"
 
 namespace Memory::tui {
     class Element;
@@ -30,6 +31,12 @@ namespace Memory::tui {
     public:
         explicit Element(const ElementSize &size,const ElementParent &parent) : parent(parent),currentsize(size){
             framebuffer.resize(size.width*size.height);
+        };
+        explicit Element(const ElementSize &size) : parent(*this, -1),currentsize(size){
+            framebuffer.resize(size.width*size.height);
+        };
+        explicit Element(const TerminalInfo &terminalInfo) : parent(*this, -1),currentsize({terminalInfo.width, terminalInfo.height}){
+            framebuffer.resize(terminalInfo.width*terminalInfo.height);
         };
         int addChild(Element& element, int x, int y);
         ElementChild& getChild(int index);
