@@ -1,3 +1,4 @@
+#pragma once
 #include <vector>
 #include "../Functional/Input.h"
 #include "../TerminalHelper.h"
@@ -11,13 +12,13 @@ namespace Memory::tui {
         int x;
         int y;
         bool visible;
-        Element& element;
+        Element* element;
         int id;
     };
     struct ElementParent{
-        Element& element;
+        Element* element;
         int childIndex;
-        ElementParent(Element& parent, int childIndex) : element(parent), childIndex(childIndex){};
+        ElementParent(Element* parent, int childIndex) : element(parent), childIndex(childIndex){};
     };
     class Element {
     private:
@@ -35,16 +36,16 @@ namespace Memory::tui {
         explicit Element(const ElementSize &size,const ElementParent &parent) : parent(parent),currentsize(size){
             init();
         };
-        explicit Element(const ElementSize &size) : parent(*this, -1),currentsize(size){
+        explicit Element(const ElementSize &size) : parent(this, -1),currentsize(size){
             init();
         };
-        explicit Element(const TerminalInfo &terminalInfo) : parent(*this, -1),currentsize({terminalInfo.width, terminalInfo.height}){
+        explicit Element(const TerminalInfo &terminalInfo) : parent(this, -1),currentsize({terminalInfo.width, terminalInfo.height}){
             init();
         };
         explicit Element(const TerminalInfo &terminalInfo, const ElementParent &parent) : parent(parent),currentsize({terminalInfo.width, terminalInfo.height}){
             init();
         };
-        int addChild(Element& element, int x, int y);
+        int addChild(Element* element, int x, int y);
         virtual void setFocus(bool focused) = 0;
         ElementChild& getChild(int index);
         virtual std::vector<char>& render(bool shouldNotifyParent=true);
@@ -57,6 +58,9 @@ namespace Memory::tui {
         };
         virtual ElementSize offerSize(ElementSize size) = 0;
         virtual void childRenderCallback(int index);
+        void updateParent(ElementParent newParent){
+            this->parent = newParent;
+        };
     };
 
 }

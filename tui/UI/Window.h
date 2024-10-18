@@ -37,7 +37,7 @@ namespace Memory::tui{
             focusStack.pop_back();
         };
         InputActionResult handleInput(InputSignal& c) final{
-            return children[focusStack[focusStack.size()-1]].element.handleInput(c);
+            return children[focusStack[focusStack.size()-1]].element->handleInput(c);
         };
         void setFocus(bool focused) final {};
 

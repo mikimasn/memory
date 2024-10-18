@@ -1,3 +1,4 @@
+#pragma once
 namespace Memory::tui {
     enum InputActionResult{
         VOID,

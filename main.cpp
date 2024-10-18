@@ -1,11 +1,14 @@
 #include "tui/UI/Window.h"
+#include "tui/MaterialDesign/FramedElement.h"
 #include "tui/Functional/Interupts.h"
+#include "tui/MaterialDesign/Button.h"
 #include <armadillo>
 
 class TestElement : public Memory::tui::Element{
     char c='X';
     public:
         explicit TestElement(const Memory::tui::ElementSize &size, const Memory::tui::ElementParent &parent) : Element(size, parent) {}
+        explicit TestElement(const Memory::tui::ElementSize &size) : Element(size) {}
         std::vector<char>& render(bool shouldNotifyParent) final{
             for(int i=0; i<currentsize.width*currentsize.height; i++){
                 framebuffer[i] = c;
@@ -23,11 +26,20 @@ class TestElement : public Memory::tui::Element{
             render(true);
         }
 };
+void klik(){
+    exit(2137);
+}
 int main() {
     Memory::tui::Window window;
-    Memory::tui::Sheet sheet({window, window.addChild(sheet, 0, 0)});
-    TestElement child({5, 5}, {sheet, sheet.addChild(child, 0, 0)});
-    TestElement child2({5, 5}, {sheet, sheet.addChild(child2, 20, 0)});
+    Memory::tui::Sheet sheet({&window, window.addChild(&sheet, 0, 0)});
+
+    Memory::tui::FramedElement group(Memory::tui::ElementSize{20,7},'#',Memory::tui::ElementParent{&sheet, sheet.addChild(&group, 0, 0)});
+    vector<Memory::tui::Button> buttons;
+    for(int i=0;i<5;i++){
+        Memory::tui::Button button(Memory::tui::ElementSize{10,1}, "Button "+std::to_string(i), klik);
+        buttons.push_back(button);
+    }
+    for(int i=0;i<5;i++) buttons[i].updateParent(Memory::tui::ElementParent(&group, group.addChild(&buttons[i], 2, i+1)));
     Memory::tui::Interupts::setupInterupts();
     window.pushFocus(0);
     window.render(true);

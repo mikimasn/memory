@@ -3,8 +3,8 @@
 #include "Element.h"
 
 namespace Memory::tui{
-    int Element::addChild(Memory::tui::Element &element, int x, int y) {
-        if(&element==this){
+    int Element::addChild(Memory::tui::Element *element, int x, int y) {
+        if(element==this){
             throw std::invalid_argument("Cannot add self as child");
         }
         children.push_back({x, y, true, element,childernIndex});
@@ -37,11 +37,11 @@ namespace Memory::tui{
 
     void Element::writeChildToFrameBuffer(const ElementChild &child, bool shouldRender) {
         if(child.visible){
-            auto childFrameBuffer = child.element.getFramebuffer();
+            auto childFrameBuffer = child.element->getFramebuffer();
             if(shouldRender){
-                childFrameBuffer = child.element.render(false);
+                childFrameBuffer = child.element->render(false);
             }
-            auto childSize = child.element.getSize();
+            auto childSize = child.element->getSize();
             for(int row=0; row<childSize.height; row++){
                 int relativeRow = row+child.y;
                 if(relativeRow>=currentsize.height) break; //we are out of bounds for the parent
@@ -58,7 +58,7 @@ namespace Memory::tui{
 
     void Element::notifyParent() {
         if(parent.childIndex!=-1){
-            parent.element.childRenderCallback(parent.childIndex);
+            parent.element->childRenderCallback(parent.childIndex);
         }
     }
 
@@ -66,12 +66,12 @@ namespace Memory::tui{
         auto res = InputActionResult::NOT_HANDLED;
 
         if(focusIndex!=-1){
-            res = children[focusIndex].element.handleInput(c);
+            res = children[focusIndex].element->handleInput(c);
         }
         else if(children.size()>0){
             focusIndex = 0;
-            children[focusIndex].element.setFocus(true);
-            children[focusIndex].element.handleInput(c);
+            children[focusIndex].element->setFocus(true);
+            children[focusIndex].element->handleInput(c);
             return InputActionResult::VOID;
         }
         if(res!=InputActionResult::NOT_HANDLED) return res;
@@ -104,10 +104,10 @@ namespace Memory::tui{
                 }
             }
             if(focusableChildren.size()==0) return InputActionResult::NOT_HANDLED;
-            children[focusIndex].element.setFocus(false);
+            children[focusIndex].element->setFocus(false);
             std::sort(focusableChildren.begin(), focusableChildren.end());
             focusIndex=focusableChildren[0].second;
-            children[focusIndex].element.setFocus(true);
+            children[focusIndex].element->setFocus(true);
             return InputActionResult::VOID;
         }
         return res;
