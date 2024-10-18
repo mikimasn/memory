@@ -6,13 +6,13 @@
 
 #include <asm-generic/ioctls.h>
 #include <sys/ioctl.h>
-#include <termios.h>
 #include <iostream>
 #include <armadillo>
 
 #endif
 
 namespace Memory::tui {
+     termios TerminalHelper::oldTerminalSettings;
      TerminalInfo TerminalHelper::getTerminalInfo() {
 #ifdef _WIN32
         CONSOLE_SCREEN_BUFFER_INFO csbi;
@@ -49,6 +49,7 @@ namespace Memory::tui {
 
         // Get current terminal attributes and save them in orig_termios
         tcgetattr(STDIN_FILENO, &orig_termios);
+        TerminalHelper::oldTerminalSettings=orig_termios;
         raw = orig_termios;  // Make a copy of the original settings
 
         // Disable canonical mode, echoing
@@ -60,6 +61,14 @@ namespace Memory::tui {
         tcsetattr(STDIN_FILENO, TCSAFLUSH, &raw);
 #endif
     }
+    void TerminalHelper::restoreTerminal() {
+#ifdef _WIN32
+        // Not implemented
+#else
+        std::cout<<"\033[?25h";
+        tcsetattr(STDIN_FILENO, TCSAFLUSH, &TerminalHelper::oldTerminalSettings);
+#endif
+     }
 
     void TerminalHelper::pushToTerminal(const std::vector<char> &framebuffer) {
         std::string output;

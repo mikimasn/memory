@@ -1,7 +1,6 @@
 #include <vector>
 #include "../Functional/Input.h"
 #include "../TerminalHelper.h"
-
 namespace Memory::tui {
     class Element;
     struct ElementSize{

@@ -20,11 +20,13 @@ namespace Memory::tui{
     class Window: public Element {
     private:
         std::vector<int> focusStack;
+        static Window* instance;
     protected:
         void pushToTerminal();
     public:
         explicit Window(): Element(TerminalHelper::getTerminalInfo()){
             Memory::tui::TerminalHelper::setupTerminal();
+            Window::instance=this;
         };
         std::vector<char>& render(bool shouldNotifyParent) final;
         ElementSize offerSize(ElementSize size) final;
@@ -40,5 +42,8 @@ namespace Memory::tui{
         void setFocus(bool focused) final {};
 
         void childRenderCallback(int index) final;
+        static Window *getInstance(){
+            return instance;
+        };
     };
 }

@@ -1,4 +1,5 @@
 #include "tui/UI/Window.h"
+#include "tui/Functional/Interupts.h"
 #include <armadillo>
 
 class TestElement : public Memory::tui::Element{
@@ -27,13 +28,13 @@ int main() {
     Memory::tui::Sheet sheet({window, window.addChild(sheet, 0, 0)});
     TestElement child({5, 5}, {sheet, sheet.addChild(child, 0, 0)});
     TestElement child2({5, 5}, {sheet, sheet.addChild(child2, 20, 0)});
+    Memory::tui::Interupts::setupInterupts();
     window.pushFocus(0);
     window.render(true);
-    sleep(1);
-    Memory::tui::InputSignal signal = {Memory::tui::InputGroup::ARROW_KEYS, 2};
-    window.handleInput(signal);
-    sleep(1);
-    window.handleInput(signal);
-    sleep(1);
+    while(true){
+        auto ele = Memory::tui::InputHandler::blockForInput();
+        window.handleInput(ele);
+//        window.render(true);
+    }
     return 0;
 }

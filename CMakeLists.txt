@@ -13,4 +13,6 @@ add_executable(MemoryGejanci main.cpp
         tui/UI/Window.h
         tui/UI/Window.h
         tui/Functional/Input.cpp
+        tui/Functional/Interupts.cpp
+        tui/Functional/Interupts.h
 )

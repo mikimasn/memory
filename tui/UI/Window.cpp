@@ -1,6 +1,7 @@
 #include "Window.h"
 
 namespace Memory::tui {
+    Window* Window::instance = nullptr;
     std::vector<char> &Window::render(bool shouldNotifyParent) {
         for(int i=focusStack.size()-1; i>=0; i--){
             writeChildToFrameBuffer(children[focusStack[i]], true);

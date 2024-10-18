@@ -1,4 +1,7 @@
+#include <armadillo>
 #include "Input.h"
+#include "Interupts.h"
+
 namespace Memory::tui {
 
     InputSignal InputHandler::parseInput(char* c) {
@@ -44,5 +47,15 @@ namespace Memory::tui {
             default:
                 return NOT_HANDLED;
         }
+    }
+
+    InputSignal InputHandler::blockForInput() {
+        char c[3];
+        read(STDIN_FILENO, c, 3);
+        //detect when the input stream is closed
+        if(c[0]==0){
+            Interupts::handleTermination(0);
+        }
+        return parseInput(c);
     }
 }

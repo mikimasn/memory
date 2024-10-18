@@ -22,6 +22,7 @@ namespace Memory::tui {
     public:
         static InputSignal parseInput(char* c);
         static InputActionResult convertArrowKeys(InputSignal signal);
+        static InputSignal blockForInput();
     };
 }
 
