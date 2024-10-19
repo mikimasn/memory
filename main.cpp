@@ -2,6 +2,7 @@
 #include "tui/MaterialDesign/FramedElement.h"
 #include "tui/Functional/Interupts.h"
 #include "tui/MaterialDesign/Button.h"
+#include "tui/MaterialDesign/Positioner.h"
 #include <armadillo>
 
 class TestElement : public Memory::tui::Element{
@@ -40,6 +41,7 @@ int main() {
         buttons.push_back(button);
     }
     for(int i=0;i<5;i++) buttons[i].updateParent(Memory::tui::ElementParent(&group, group.addChild(&buttons[i], 2, i+1)));
+    Memory::tui::Positioner::center(sheet, sheet.getChild(0));
     Memory::tui::Interupts::setupInterupts();
     window.pushFocus(0);
     window.render(true);
