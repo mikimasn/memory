@@ -1,15 +1,13 @@
 #include "../UI/Element.h"
 
 namespace Memory::tui{
-
-    class MemoryText: public Element {
-    private:
-
+    class Group: public Element{
     public:
-        explicit MemoryText(const ElementParent &parent) : Element(ElementSize{67,12}, parent) {};
-        explicit MemoryText(): Element(ElementSize{67,12}) {};
+        explicit Group(const ElementSize &size,const ElementParent &parent) : Element(size, parent) {};
 
-        std::vector<char> &render(bool shouldNotifyParent) final;
+        std::vector<char> &render(bool shouldNotifyParent) final{
+            return Element::render(shouldNotifyParent);
+        }
 
         ElementSize offerSize(ElementSize size) final {
             currentsize = size;
@@ -19,8 +17,7 @@ namespace Memory::tui{
 
         void setFocus(bool focused) final {};
         bool canTakeFocus() final {
-            return false;
+            return Element::canTakeFocus();
         }
     };
-
 }

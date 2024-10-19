@@ -26,4 +26,7 @@ add_executable(MemoryGejanci main.cpp
         tui/MaterialDesign/Text.h
         tui/MaterialDesign/MemoryText.cpp
         tui/MaterialDesign/MemoryText.h
+        tui/Screens/StartScreen.cpp
+        tui/Screens/StartScreen.h
+        tui/MaterialDesign/Group.h
 )

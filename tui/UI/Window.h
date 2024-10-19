@@ -1,3 +1,4 @@
+#pragma once
 #include "Element.h"
 #include <stack>
 
