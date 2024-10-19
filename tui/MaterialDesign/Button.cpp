@@ -1,5 +1,7 @@
 #include "Button.h"
 #include "../TerminalHelper.h"
+#include "Positioner.h"
+
 void Memory::tui::Button::setFocus(bool focused) {
     isFocused = focused;
     render(true);
@@ -15,10 +17,12 @@ Memory::tui::InputActionResult Memory::tui::Button::handleInput(Memory::tui::Inp
 
 std::vector<char> &Memory::tui::Button::render(bool shouldNotifyParent) {
         framebuffer.assign(currentsize.width * currentsize.height, ' ');
-        for(int i=0; i<text.size(); i++){
-            framebuffer[i]=text[i];
-        }
-        if(isFocused) for(char& i : framebuffer) i |= HIGHLIGHT_TEXT;
+        this->textElement.setHighlighted(isFocused,false);
+        this->getChild(0).element= &this->textElement;
         return Element::render(shouldNotifyParent);
+}
+
+void Memory::tui::Button::init() {
+    Positioner::center(*this, this->getChild(0));
 };
 

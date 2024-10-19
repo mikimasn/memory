@@ -22,4 +22,6 @@ add_executable(MemoryGejanci main.cpp
         tui/MaterialDesign/FramedElement.cpp
         tui/MaterialDesign/Positioner.h
         tui/MaterialDesign/Positioner.cpp
+        tui/MaterialDesign/Text.cpp
+        tui/MaterialDesign/Text.h
 )

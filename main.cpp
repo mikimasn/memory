@@ -39,10 +39,10 @@ int main() {
     Memory::tui::FramedElement group(Memory::tui::ElementSize{20,7},'#',Memory::tui::ElementParent{&sheet, sheet.addChild(&group, 0, 0)});
     vector<Memory::tui::Button> buttons;
     for(int i=0;i<5;i++){
-        Memory::tui::Button button(Memory::tui::ElementSize{10,1}, "Button "+std::to_string(i), klik);
+        Memory::tui::Button button(Memory::tui::ElementSize{18,1}, "Button "+std::to_string(i), klik);
         buttons.push_back(button);
     }
-    for(int i=0;i<5;i++) buttons[i].updateParent(Memory::tui::ElementParent(&group, group.addChild(&buttons[i], 2, i+1)));
+    for(int i=0;i<5;i++) buttons[i].updateParent(Memory::tui::ElementParent(&group, group.addChild(&buttons[i], 1, i+1)));
     Memory::tui::Positioner::center(sheet, sheet.getChild(0));
     Memory::tui::Interupts::setupInterupts();
     window.pushFocus(0);
