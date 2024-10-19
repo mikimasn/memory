@@ -12,7 +12,7 @@ Memory::tui::InputActionResult Memory::tui::Button::handleInput(Memory::tui::Inp
             callback();
             return InputActionResult::VOID;
         }
-        return Element::handleInput(c);
+        return InputActionResult::NOT_HANDLED;
 }
 
 std::vector<char> &Memory::tui::Button::render(bool shouldNotifyParent) {
