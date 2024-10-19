@@ -25,6 +25,9 @@ namespace Memory::tui {
             return Element::handleInput(c);
         };
         void setFocus(bool focused) final {};
+        bool canTakeFocus() final{
+            return Element::canTakeFocus();
+        }
     };
 
 }

@@ -3,6 +3,7 @@
 #include "tui/Functional/Interupts.h"
 #include "tui/MaterialDesign/Button.h"
 #include "tui/MaterialDesign/Positioner.h"
+#include "tui/MaterialDesign/MemoryText.h"
 #include <armadillo>
 
 class TestElement : public Memory::tui::Element{
@@ -35,7 +36,7 @@ int main() {
     Memory::tui::Sheet background({&window, window.addChild(&background, 0, 0)});
     TestElement testElement(background.getSize(), Memory::tui::ElementParent{&background, background.addChild(&testElement, 0, 0)});
     Memory::tui::Sheet sheet({&window, window.addChild(&sheet, 0, 0)});
-
+    Memory::tui::MemoryText memoryText(Memory::tui::ElementParent{&sheet, sheet.addChild(&memoryText, 0, 0)});
     Memory::tui::FramedElement group(Memory::tui::ElementSize{20,7},'#',Memory::tui::ElementParent{&sheet, sheet.addChild(&group, 0, 0)});
     vector<Memory::tui::Button> buttons;
     for(int i=0;i<5;i++){
@@ -43,9 +44,9 @@ int main() {
         buttons.push_back(button);
     }
     for(int i=0;i<5;i++) buttons[i].updateParent(Memory::tui::ElementParent(&group, group.addChild(&buttons[i], 1, i+1)));
-    Memory::tui::Positioner::center(sheet, sheet.getChild(0));
+    Memory::tui::Positioner::center(sheet, sheet.getChild(1));
     Memory::tui::Interupts::setupInterupts();
-    window.pushFocus(0);
+//    window.pushFocus(0);
     window.pushFocus(1);
     window.render(true);
     while(true){

@@ -25,9 +25,9 @@ namespace Memory::tui {
             this->highlighted = highlighted;
             if(rerender) render(true);
         }
-
-
-
+        bool canTakeFocus() final {
+            return false;
+        }
     };
 
 }

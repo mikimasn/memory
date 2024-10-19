@@ -61,6 +61,7 @@ namespace Memory::tui {
         void updateParent(ElementParent newParent){
             this->parent = newParent;
         };
+        virtual bool canTakeFocus();
     };
 
 }
