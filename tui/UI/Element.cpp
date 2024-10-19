@@ -49,6 +49,7 @@ namespace Memory::tui{
                     int relativeCol = col+child.x;
                     if(relativeCol>=currentsize.width) break;
                     int resultCell = relativeRow*currentsize.width+relativeCol;
+                    if(childFrameBuffer[row*childSize.width+col]==0) continue;
                     int childCell = row*childSize.width+col;
                     framebuffer[resultCell] = childFrameBuffer[childCell];
                 }

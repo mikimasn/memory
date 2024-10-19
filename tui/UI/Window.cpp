@@ -3,8 +3,12 @@
 namespace Memory::tui {
     Window* Window::instance = nullptr;
     std::vector<char> &Window::render(bool shouldNotifyParent) {
-        for(int i=focusStack.size()-1; i>=0; i--){
-            writeChildToFrameBuffer(children[focusStack[i]], true);
+        for(int i : focusStack){
+            writeChildToFrameBuffer(children[i], true);
+        }
+        //replace nulls with spaces
+        for(char & i : framebuffer){
+            if(i==0) i=' ';
         }
         pushToTerminal();
         return framebuffer;

@@ -6,7 +6,7 @@ namespace Memory::tui{
     public:
         explicit Sheet(const ElementParent parent): Element(TerminalHelper::getTerminalInfo(),parent){};
         std::vector<char>& render(bool shouldNotifyParent) final{
-            framebuffer.assign(currentsize.width * currentsize.height, ' ');
+            framebuffer.assign(currentsize.width * currentsize.height, 0);
             return Element::render(shouldNotifyParent);
         };
         ElementSize offerSize(ElementSize size) final{

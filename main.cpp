@@ -6,7 +6,7 @@
 #include <armadillo>
 
 class TestElement : public Memory::tui::Element{
-    char c='X';
+    char c='.';
     public:
         explicit TestElement(const Memory::tui::ElementSize &size, const Memory::tui::ElementParent &parent) : Element(size, parent) {}
         explicit TestElement(const Memory::tui::ElementSize &size) : Element(size) {}
@@ -23,15 +23,17 @@ class TestElement : public Memory::tui::Element{
             return Memory::tui::InputActionResult::NOT_HANDLED;
         }
         void setFocus(bool focused) override {
-            c = focused ? 'O' : 'X';
+//            c = focused ? 'O' : 'X';
             render(true);
         }
 };
 void klik(){
-    exit(2137);
+    Memory::tui::Interupts::handleTermination(0);
 }
 int main() {
     Memory::tui::Window window;
+    Memory::tui::Sheet background({&window, window.addChild(&background, 0, 0)});
+    TestElement testElement(background.getSize(), Memory::tui::ElementParent{&background, background.addChild(&testElement, 0, 0)});
     Memory::tui::Sheet sheet({&window, window.addChild(&sheet, 0, 0)});
 
     Memory::tui::FramedElement group(Memory::tui::ElementSize{20,7},'#',Memory::tui::ElementParent{&sheet, sheet.addChild(&group, 0, 0)});
@@ -44,6 +46,7 @@ int main() {
     Memory::tui::Positioner::center(sheet, sheet.getChild(0));
     Memory::tui::Interupts::setupInterupts();
     window.pushFocus(0);
+    window.pushFocus(1);
     window.render(true);
     while(true){
         auto ele = Memory::tui::InputHandler::blockForInput();

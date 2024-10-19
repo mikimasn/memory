@@ -1,11 +1,8 @@
 #include "Button.h"
+#include "../TerminalHelper.h"
 void Memory::tui::Button::setFocus(bool focused) {
-        if(focused) text+=" *";
-        else {
-            text.pop_back();
-            text.pop_back();
-        }
-        render(true);
+    isFocused = focused;
+    render(true);
 }
 
 Memory::tui::InputActionResult Memory::tui::Button::handleInput(Memory::tui::InputSignal &c) {
@@ -21,6 +18,7 @@ std::vector<char> &Memory::tui::Button::render(bool shouldNotifyParent) {
         for(int i=0; i<text.size(); i++){
             framebuffer[i]=text[i];
         }
+        if(isFocused) for(char& i : framebuffer) i |= HIGHLIGHT_TEXT;
         return Element::render(shouldNotifyParent);
 };
 

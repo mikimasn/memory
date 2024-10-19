@@ -4,6 +4,8 @@
 #ifndef _WIN32
 #include <termios.h>
 #endif
+
+#define HIGHLIGHT_TEXT 128
 namespace Memory::tui {
     struct TerminalInfo {
         int width;
