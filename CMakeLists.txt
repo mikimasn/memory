@@ -31,4 +31,6 @@ add_executable(MemoryGejanci main.cpp
         tui/MaterialDesign/Group.h
         tui/MaterialDesign/InputBox.cpp
         tui/MaterialDesign/InputBox.h
+        game/Application.cpp
+        game/Application.h
 )

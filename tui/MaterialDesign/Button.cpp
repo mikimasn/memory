@@ -1,5 +1,4 @@
 #include "Button.h"
-#include "../TerminalHelper.h"
 #include "Positioner.h"
 
 void Memory::tui::Button::setFocus(bool focused) {
