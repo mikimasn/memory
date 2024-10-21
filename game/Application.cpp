@@ -16,3 +16,8 @@ void Memory::game::Application::start() {
         window.handleInput(ele);
     }
 }
+
+void Memory::game::Application::goToSetup() {
+    window.clearFocus();
+    window.pushFocus(Screens::Setup);
+}

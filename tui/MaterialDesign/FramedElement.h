@@ -1,3 +1,4 @@
+#pragma once
 #include "../UI/Element.h"
 
 namespace Memory::tui {

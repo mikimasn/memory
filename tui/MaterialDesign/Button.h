@@ -1,3 +1,4 @@
+#pragma once
 #include "../UI/Element.h"
 #include "../Functional/Input.h"
 #include "Text.h"

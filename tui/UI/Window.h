@@ -37,6 +37,9 @@ namespace Memory::tui{
         void popFocus(){
             focusStack.pop_back();
         };
+        void clearFocus(){
+            focusStack.clear();
+        };
         InputActionResult handleInput(InputSignal& c) final{
             return children[focusStack[focusStack.size()-1]].element->handleInput(c);
         };

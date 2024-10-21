@@ -3,7 +3,8 @@
 
 namespace Memory::game{
     enum Screens{
-        Start
+        Start,
+        Setup,
     };
     class Application {
     private:
@@ -13,6 +14,7 @@ namespace Memory::game{
 
     public:
         static void start();
+        static void goToSetup();
 
     };
 }

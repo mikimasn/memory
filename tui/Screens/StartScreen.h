@@ -1,3 +1,4 @@
+#pragma once
 #include "../UI/Window.h"
 #include "../Functional/Interupts.h"
 #include "../MaterialDesign/Button.h"

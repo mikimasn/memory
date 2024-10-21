@@ -33,4 +33,6 @@ add_executable(MemoryGejanci main.cpp
         tui/MaterialDesign/InputBox.h
         game/Application.cpp
         game/Application.h
+        tui/Screens/SetupScreen.cpp
+        tui/Screens/SetupScreen.h
 )
