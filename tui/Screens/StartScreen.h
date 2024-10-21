@@ -35,16 +35,16 @@ namespace Memory::tui {
                                                             loadButton(ElementSize{18, 1}, std::string("Load game "),
                                                                        loadCallback),
                                                             upperpart(ElementSize{this->getSize().width,
-                                                                                  this->getSize().height / 3},
+                                                                                  this->getSize().height / 2},
                                                                       ElementParent{this,
                                                                                     this->addChild(&upperpart, 0, 0)}),
                                                             lowerpart(ElementSize{this->getSize().width,
                                                                                   this->getSize().height -
-                                                                                  this->getSize().height / 3},
+                                                                                  this->getSize().height / 2},
                                                                       ElementParent{this,
                                                                                     this->addChild(&lowerpart, 0,
                                                                                                    this->getSize().height /
-                                                                                                   3)}),
+                                                                                                   2)}),
                                                             group(ElementSize{20, 5}, '#'),
                                                             title(){
             startButton.updateParent(ElementParent{&group, group.addChild(&startButton, 1, 1)});
