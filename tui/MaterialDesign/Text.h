@@ -5,9 +5,9 @@ namespace Memory::tui {
 
     class Text : public Element {
     private:
-        std::string text;
         bool highlighted = false;
     public:
+        std::string text;
         explicit Text(const ElementSize &size, const ElementParent &parent, std::string text) : Element(size, parent), text(std::move(text)) {};
 
         explicit Text(const ElementSize &size, std::string text) : Element(size), text(std::move(text)) {};

@@ -60,5 +60,8 @@ namespace Memory::tui {
             }
             instance = this;
         };
+        StartScreen *getInstance() {
+            return instance;
+        }
     };
 }
