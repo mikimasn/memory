@@ -29,4 +29,6 @@ add_executable(MemoryGejanci main.cpp
         tui/Screens/StartScreen.cpp
         tui/Screens/StartScreen.h
         tui/MaterialDesign/Group.h
+        tui/MaterialDesign/InputBox.cpp
+        tui/MaterialDesign/InputBox.h
 )

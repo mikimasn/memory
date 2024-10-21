@@ -21,6 +21,8 @@ namespace Memory::tui {
                 }
             case '\n':
                 return {ENTER, 0};
+            case '\177':
+                return {BACKSPACE, 0};
             case '0' ... '9':
                 return {NUMBERS, c[0]};
             case 'A' ... 'Z':

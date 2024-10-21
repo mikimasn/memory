@@ -13,6 +13,7 @@ namespace Memory::tui {
         ENTER,
         NUMBERS,
         TEXT,
+        BACKSPACE,
         UNKNOWN,
     };
     struct InputSignal{
