@@ -7,7 +7,7 @@
 #include <asm-generic/ioctls.h>
 #include <sys/ioctl.h>
 #include <iostream>
-#include <armadillo>
+#include <csignal>
 
 #endif
 

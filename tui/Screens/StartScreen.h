@@ -54,6 +54,10 @@ namespace Memory::tui {
             group.updateParent(ElementParent{&lowerpart, lowerpart.addChild(&group, 0, 0)});
             Positioner::center(lowerpart,lowerpart.getChild(0));
             Positioner::center(upperpart,upperpart.getChild(0));
+            //if height of upperpart is smaller then the title do not render it
+            if(upperpart.getSize().height < title.getSize().height){
+                upperpart.getChild(0).visible=false;
+            }
             instance = this;
         };
     };

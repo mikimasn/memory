@@ -1,6 +1,5 @@
 #include "tui/UI/Window.h"
 #include "tui/Screens/StartScreen.h"
-#include <armadillo>
 
 int main() {
     Memory::tui::Window window;

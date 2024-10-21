@@ -9,7 +9,7 @@ namespace Memory::tui{
     class Positioner {
     public:
         static std::pair<int,int> center(ElementSize parent, ElementSize child){
-            return {(parent.width-child.width)/2, (parent.height-child.height)/2};
+            return {(std::max(parent.width-child.width,0))/2, (std::max(parent.height-child.height,0))/2};
         };
         static void center(Element& parent, ElementChild& child);
         static std::vector<PositionerPosition> devideinto(Element& parent, int rows, int cols);
