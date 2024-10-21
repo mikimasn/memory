@@ -25,6 +25,9 @@ namespace Memory::tui{
         bool canTakeFocus() final{
             return true;
         };
+        std::string getText(){
+            return std::string(textElement.text.begin(),textElement.text.begin()+pointer);
+        };
     };
 }
 
