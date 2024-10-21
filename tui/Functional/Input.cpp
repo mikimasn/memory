@@ -27,6 +27,7 @@ namespace Memory::tui {
                 return {NUMBERS, c[0]};
             case 'A' ... 'Z':
             case 'a' ... 'z':
+            case ' ':
                 return {TEXT, c[0]};
             default:
                 return {UNKNOWN, c[0]};

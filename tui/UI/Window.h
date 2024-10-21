@@ -39,6 +39,7 @@ namespace Memory::tui{
         };
         void clearFocus(){
             focusStack.clear();
+            this->flushFramebuffer();
         };
         InputActionResult handleInput(InputSignal& c) final{
             return children[focusStack[focusStack.size()-1]].element->handleInput(c);

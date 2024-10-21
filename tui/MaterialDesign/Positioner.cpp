@@ -1,10 +1,10 @@
 
 #include "Positioner.h"
 
-void Memory::tui::Positioner::center(Element &parent, ElementChild &child) {
+void Memory::tui::Positioner::center(Element &parent, ElementChild &child, CenterDescriptor desc) {
     auto pos = center(parent.getSize(), child.element->getSize());
-    child.x = pos.first;
-    child.y = pos.second;
+    if(desc.x) child.x = pos.first;
+    if(desc.y) child.y = pos.second;
 }
 
 std::vector<Memory::tui::PositionerPosition> Memory::tui::Positioner::devideinto(Memory::tui::Element &parent, int rows, int cols) {

@@ -2,16 +2,23 @@
 #include "Text.h"
 
 namespace Memory::tui{
+    struct InputRestrictions{
+        bool allowNumbers = true;
+        bool allowLetters = true;
+        bool allowSpecialChars = true;
+        bool allowSpace = true ;
+    };
     class InputBox: public Element {
     private:
         Text textElement;
         int pointer=0;
         void init(const ElementSize &size);
+        InputRestrictions restrictions;
     public:
-        explicit InputBox(const ElementSize& size, const ElementParent& parent): Element(size, parent), textElement({size.width,1},{this,this->addChild(&textElement,0,0)},""){
+        explicit InputBox(const ElementSize& size, const ElementParent& parent, InputRestrictions restrictions={}): Element(size, parent), textElement({size.width,1},{this,this->addChild(&textElement,0,0)},""), restrictions(restrictions){
             init(size);
         };
-        explicit InputBox(const ElementSize& size): Element(size), textElement({size.width,1},{this,this->addChild(&textElement,0,0)},""){
+        explicit InputBox(const ElementSize& size, InputRestrictions restrictions={}): Element(size), textElement({size.width,1},{this,this->addChild(&textElement,0,0)},""), restrictions(restrictions){
             init(size);
         };
         std::vector<char>& render(bool shouldNotifyParent) final{

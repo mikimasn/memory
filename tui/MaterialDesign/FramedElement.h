@@ -20,6 +20,8 @@ namespace Memory::tui {
         FramedElement(const ElementSize& size, char c, const ElementParent& parent): Element(size, parent), c(c){};
         std::vector<char>& render(bool shouldNotifyParent) final;
         ElementSize offerSize(ElementSize size) final{
+            currentsize = size;
+            framebuffer.resize(size.width * size.height);
             return currentsize;
         };
         InputActionResult handleInput(InputSignal& c) final{

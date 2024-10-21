@@ -1,21 +1,28 @@
 #include "../tui/UI/Window.h"
 #include "../tui/Screens/StartScreen.h"
+#include "../tui/Screens/SetupScreen.h"
+#include "../tui/Screens/ErrorScreen.h"
 
 namespace Memory::game{
     enum Screens{
-        Start,
-        Setup,
+        Start=0,
+        Setup=1,
+        Error=2
     };
     class Application {
     private:
         static void initiliaze();
         static Memory::tui::Window window;
         static Memory::tui::StartScreen startScreen;
+        static Memory::tui::SetupScreen setupScreen;
+        static bool isError;
+        static Memory::tui::ErrorScreen errorScreen;
 
     public:
         static void start();
         static void goToSetup();
-
+        static void throwError(const std::string &message);
+        static void closeError();
     };
 }
 

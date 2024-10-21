@@ -1,5 +1,9 @@
-//
-// Created by pythontest on 21.10.24.
-//
+#include "../../game/Application.h"
 
-#include "SetupScreen.h"
+namespace Memory::tui {
+    SetupScreen *SetupScreen::instance = nullptr;
+
+    void SetupScreen::startGame() {
+        Memory::game::Application::throwError("Not implemented yet");
+    }
+}

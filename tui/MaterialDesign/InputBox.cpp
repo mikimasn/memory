@@ -3,6 +3,8 @@
 Memory::tui::InputActionResult Memory::tui::InputBox::handleInput(Memory::tui::InputSignal &c) {
 
     if(c.group==InputGroup::TEXT||c.group==InputGroup::NUMBERS){
+        if(c.group==InputGroup::TEXT&&!restrictions.allowLetters) return InputActionResult::VOID;
+        if(c.group==InputGroup::NUMBERS&&!restrictions.allowNumbers) return InputActionResult::VOID;
         if(pointer==textElement.text.size()) return InputActionResult::VOID;
         textElement.text[pointer]&=~HIGHLIGHT_TEXT;
         textElement.text[pointer++]=c.c;

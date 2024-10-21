@@ -62,6 +62,9 @@ namespace Memory::tui {
             this->parent = newParent;
         };
         virtual bool canTakeFocus();
+        void flushFramebuffer(){
+            framebuffer.assign(currentsize.width*currentsize.height,0);
+        };
     };
 
 }
