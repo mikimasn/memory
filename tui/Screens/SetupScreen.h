@@ -6,7 +6,7 @@
 
 namespace Memory::tui {
     class SetupScreen : public Sheet {
-    private:
+    public:
         static SetupScreen *instance;
         InputBox player1;
         InputBox player2;
@@ -21,7 +21,6 @@ namespace Memory::tui {
         FramedElement frame;
         Button startButton;
         static void startGame();
-    public:
         explicit SetupScreen(const ElementParent &parent) : Sheet(parent),
                                                             player1({30, 1}),
                                                             player2({30, 1}),
@@ -54,7 +53,7 @@ namespace Memory::tui {
             startButton.updateParent(ElementParent{&frame, childID=frame.addChild(&startButton, 2, 8)});
             Positioner::center(frame, frame.getChild(childID),{true,false});
         };
-        SetupScreen *getInstance() {
+        static SetupScreen *getInstance() {
             return instance;
         }
     };

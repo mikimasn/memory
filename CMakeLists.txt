@@ -37,4 +37,6 @@ add_executable(MemoryGejanci main.cpp
         tui/Screens/SetupScreen.h
         tui/Screens/ErrorScreen.cpp
         tui/Screens/ErrorScreen.h
+        game/Game.cpp
+        game/Game.h
 )
