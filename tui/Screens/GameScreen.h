@@ -20,6 +20,7 @@ namespace Memory::tui {
             this->game = gameptr;
             auto gameCards = game->getCards();
             this->cards.clear();
+            this->cards.reserve(gameCards.size());
             for(short & gameCard : gameCards){
                 this->cards.emplace_back(gameCard);
             }
