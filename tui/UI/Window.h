@@ -36,6 +36,7 @@ namespace Memory::tui{
         };
         void popFocus(){
             focusStack.pop_back();
+            this->flushFramebuffer();
         };
         void clearFocus(){
             focusStack.clear();

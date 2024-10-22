@@ -26,10 +26,12 @@ namespace Memory::tui {
             Memory::game::Application::throwError("Width or height must be even");
             return;
         }
-        if(width*9>getInstance()->getSize().width || height*5+10>getInstance()->getSize().height){
-            Memory::game::Application::throwError("Board is too big for the screen");
+        if(width*7>getInstance()->getSize().width || height*7+2>getInstance()->getSize().height){
+            Memory::game::Application::throwError("Board is too big for the screen(Max size height: "+std::to_string((getInstance()->getSize().height-2)/7)+", width: "+std::to_string(getInstance()->getSize().width/7)+")");
             return;
         }
-        Memory::game::Application::throwError("Not implemented yet");
+        string p1 = getInstance()->player1.getText();
+        string p2 = getInstance()->player2.getText();
+        Memory::game::Application::createAndStartGame(p1,p2,width,height);
     }
 }
