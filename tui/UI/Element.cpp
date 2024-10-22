@@ -97,14 +97,15 @@ namespace Memory::tui {
                 default:
                     break;
             }
-            std::vector<std::pair<int, int>> focusableChildren;
+            std::vector<std::pair<std::pair<int,int>, int>> focusableChildren;
             for (int i = 0; i < childernIndex; i++) {
                 if (i == focusIndex) continue;
                 if (children[i].visible&&children[i].element->canTakeFocus()) {
                     int yfactor = (children[i].y - children[focusIndex].y) * newFocus.second;
                     int xfactor = (children[i].x - children[focusIndex].x) * newFocus.first;
-                    if (yfactor > 0 || xfactor > 0)
-                        focusableChildren.push_back({(yfactor * yfactor) + (xfactor * xfactor), i});
+                    if (yfactor > 0 || xfactor > 0){
+                        focusableChildren.push_back({{(children[i].y - children[focusIndex].y)*(children[i].y - children[focusIndex].y),(children[i].x - children[focusIndex].x)*(children[i].x - children[focusIndex].x)},i});
+                    }
                 }
             }
             if (focusableChildren.size() == 0) return InputActionResult::NOT_HANDLED;

@@ -27,7 +27,19 @@ namespace Memory::tui {
             for (int i = 0; i < gameCards.size(); i++) {
                 this->cards[i].setFliped(false);
                 this->cards[i].setFocus(false);
-                this->cards[i].updateParent({this, this->addChild(&this->cards[i], i % 6 * 8, i / 6 * 8)});
+            }
+            auto dim = game->getDimensions();
+            int width = dim.first;
+            int height = dim.second;
+            int cardWidth = 6, cardHeight = 6, cardSpacing = 1;
+            for(int i=0; i<height; i++){
+                for(int j=0; j<width; j++){
+                    int index = i*width+j;
+                    if(index>=gameCards.size()){
+                        break;
+                    }
+                    this->cards[index].updateParent(ElementParent{this, this->addChild(&this->cards[index], j*(cardWidth+cardSpacing), i*(cardHeight+cardSpacing))});
+                }
             }
         }
         static GameScreen *getInstance() {

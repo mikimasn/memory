@@ -49,5 +49,8 @@ namespace Memory::game {
         int getSeed() const{
             return seed;
         }
+        std::pair<int,int> getDimensions(){
+            return {width, height};
+        }
     };
 }
