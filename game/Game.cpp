@@ -41,9 +41,13 @@ Memory::game::GameAction Memory::game::Game::discover(int index) {
             else{
                 score2++;
             }
-            if(score1+score2==width*height/2){
+            if(score1+score2==(width*height)/2){
+                if(score1>score2) result=Memory::game::Player1;
+                else if(score2>score1) result=Memory::game::Player2;
+                else result=Memory::game::Draw;
                 return Memory::game::EndGame;
             }
+            nowDiscovered=-1;
             return Memory::game::Score;
         }
         else {

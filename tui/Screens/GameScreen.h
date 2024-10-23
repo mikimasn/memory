@@ -1,3 +1,4 @@
+#pragma once
 #include "../UI/Window.h"
 #include "../../game/Game.h"
 #include "../MaterialDesign/Card.h"
@@ -8,6 +9,10 @@ namespace Memory::tui {
         static GameScreen *instance;
         Memory::game::Game *game=nullptr;
         std::vector<Card> cards;
+        static void cardCallback(int id);
+        static void timerCallback();
+        int lastCard = -1;
+        int pending = -1;
     public:
         explicit GameScreen(const ElementParent &parent, Memory::game::Game *game) : Sheet(parent), game(game) {
             instance = this;
@@ -21,8 +26,8 @@ namespace Memory::tui {
             auto gameCards = game->getCards();
             this->cards.clear();
             this->cards.reserve(gameCards.size());
-            for(short & gameCard : gameCards){
-                this->cards.emplace_back(gameCard);
+            for(int i=0;i<gameCards.size();i++){
+                this->cards.emplace_back(gameCards[i], cardCallback,i);
             }
             for (int i = 0; i < gameCards.size(); i++) {
                 this->cards[i].setFliped(false);
@@ -38,12 +43,16 @@ namespace Memory::tui {
                     if(index>=gameCards.size()){
                         break;
                     }
-                    this->cards[index].updateParent(ElementParent{this, this->addChild(&this->cards[index], j*(cardWidth+cardSpacing), i*(cardHeight+cardSpacing))});
+                    this->cards[index].updateParent(ElementParent{this, this->addChild(&this->cards[index], j*(cardWidth+cardSpacing), i*(cardHeight+cardSpacing)+1)});
                 }
             }
         }
         static GameScreen *getInstance() {
             return instance;
         }
+        InputActionResult handleInput(InputSignal& c) final{
+            if(c.group==InputGroup::ENTER&&pending!=-1) return InputActionResult::VOID;
+            return Sheet::handleInput(c);
+        };
     };
 }

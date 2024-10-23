@@ -13,7 +13,7 @@ namespace Memory::tui{
         ElementSize offerSize(ElementSize size) final{
             return currentsize;
         };
-        InputActionResult handleInput(InputSignal& c) final{
+        InputActionResult handleInput(InputSignal& c) override{
             return Element::handleInput(c);
         };
         void setFocus(bool focused) final {};

@@ -5,9 +5,11 @@ std::string rewers="--. "
                    " --."
                    ".-  ";
 Memory::tui::InputActionResult Memory::tui::Card::handleInput(Memory::tui::InputSignal &signal) {
+    if(isFlipped) return InputActionResult::NOT_HANDLED;
     if(signal.group==InputGroup::ENTER){
         isFlipped = !isFlipped;
         this->render(true);
+        callback(id);
         return InputActionResult::VOID;
     }
     return Element::handleInput(signal);

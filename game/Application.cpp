@@ -9,6 +9,7 @@ std::string name;
 Memory::game::Game Memory::game::Application::game = Memory::game::Game(0,0,0,name,name);
 Memory::tui::GameScreen Memory::game::Application::gameScreen = Memory::tui::GameScreen(Memory::tui::ElementParent{&window, window.addChild(&gameScreen, 0, 0)});
 bool Memory::game::Application::isError = false;
+Memory::tui::ResultScreen Memory::game::Application::resultScreen = Memory::tui::ResultScreen(Memory::tui::ElementParent{&window, window.addChild(&resultScreen, 0, 0)},"");
 void Memory::game::Application::initiliaze() {
     Memory::tui::Interupts::setupInterupts();
 }
@@ -49,5 +50,16 @@ void Memory::game::Application::createAndStartGame(string &player1, string &play
     gameScreen.attachGame(&game);
     window.clearFocus();
     window.pushFocus(Screens::Gameplay);
+    window.render(true);
+}
+
+void Memory::game::Application::showGameResult() {
+    window.clearFocus();
+    auto res = game.getResult();
+    string name="";
+    if(res==GameResult::Player1) name = game.getNames().first;
+    else if(res==GameResult::Player2) name = game.getNames().second;
+    resultScreen.update(res,name);
+    window.pushFocus(Screens::Result);
     window.render(true);
 }

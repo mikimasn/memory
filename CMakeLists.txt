@@ -43,4 +43,6 @@ add_executable(MemoryGejanci main.cpp
         tui/Screens/GameScreen.h
         tui/MaterialDesign/Card.cpp
         tui/MaterialDesign/Card.h
+        tui/Screens/ResultScreen.cpp
+        tui/Screens/ResultScreen.h
 )
