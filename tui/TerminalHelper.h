@@ -1,9 +1,7 @@
 #pragma once
 #include <utility>
 #include <vector>
-#ifndef _WIN32
 #include <termios.h>
-#endif
 
 #define HIGHLIGHT_TEXT 128
 namespace Memory::tui {
@@ -14,9 +12,7 @@ namespace Memory::tui {
 
     class TerminalHelper {
     private:
-#ifndef _WIN32
         static termios oldTerminalSettings;
-#endif
     public:
         static TerminalInfo getTerminalInfo();
         static void clearScreen();

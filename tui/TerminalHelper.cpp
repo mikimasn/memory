@@ -1,48 +1,22 @@
 #include "TerminalHelper.h"
-
-#ifdef _WIN32
-#include <windows.h>
-#else
-
 #include <asm-generic/ioctls.h>
 #include <sys/ioctl.h>
 #include <iostream>
 #include <csignal>
 
-#endif
-
 namespace Memory::tui {
      termios TerminalHelper::oldTerminalSettings;
      TerminalInfo TerminalHelper::getTerminalInfo() {
-#ifdef _WIN32
-        CONSOLE_SCREEN_BUFFER_INFO csbi;
-        GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &csbi);
-        return {csbi.srWindow.Right - csbi.srWindow.Left + 1, csbi.srWindow.Bottom - csbi.srWindow.Top + 1};
-#else
         struct winsize w;
         ioctl(STDIN_FILENO, TIOCGWINSZ, &w);
         return {w.ws_col, w.ws_row};
-#endif
     }
 
     void TerminalHelper::clearScreen() {
-#ifdef _WIN32
-        HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-        TerminalInfo terminalInfo = getTerminalInfo();
-        DWORD consoleSize = terminalInfo.width * terminalInfo.height;
-        COORD coord = {0, 0};
-        DWORD written;
-        FillConsoleOutputCharacter(hConsole, ' ', consoleSize, coord, &written);
-        SetConsoleCursorPosition(hConsole, coord);
-#else
         std::cout << "\033[2J\033[1;1H";
-#endif
     }
 
     void TerminalHelper::setupTerminal() {
-#ifdef _WIN32
-        // Not implemented
-#else
         std::cout<<"\033[?25l";
         struct termios raw;
         struct termios orig_termios;
@@ -59,15 +33,10 @@ namespace Memory::tui {
 
         // Set the terminal to raw mode
         tcsetattr(STDIN_FILENO, TCSAFLUSH, &raw);
-#endif
     }
     void TerminalHelper::restoreTerminal() {
-#ifdef _WIN32
-        // Not implemented
-#else
         std::cout<<"\033[?25h";
         tcsetattr(STDIN_FILENO, TCSAFLUSH, &TerminalHelper::oldTerminalSettings);
-#endif
      }
 
     void TerminalHelper::pushToTerminal(const std::vector<char> &framebuffer) {
