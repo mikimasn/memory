@@ -29,3 +29,7 @@ void Memory::tui::GameScreen::timerCallback() {
     instance->lastCard = instance->pending=-1;
     instance->render(true);
 }
+
+void Memory::tui::GameScreen::saveCallback() {
+    return;
+}
