@@ -76,7 +76,7 @@ namespace Memory::tui {
                 children[focusIndex].element->handleInput(c);
                 return InputActionResult::VOID;
             }
-        if(focusIndex == -1) return res;
+        if (focusIndex == -1) return res;
         if (res != InputActionResult::NOT_HANDLED) return res;
         if (c.group == InputGroup::ARROW_KEYS) {
             auto key = InputHandler::convertArrowKeys(c);
@@ -97,14 +97,17 @@ namespace Memory::tui {
                 default:
                     break;
             }
-            std::vector<std::pair<std::pair<int,int>, int>> focusableChildren;
+            std::vector<std::pair<std::pair<int, int>, int>> focusableChildren;
             for (int i = 0; i < childernIndex; i++) {
                 if (i == focusIndex) continue;
-                if (children[i].visible&&children[i].element->canTakeFocus()) {
+                if (children[i].visible && children[i].element->canTakeFocus()) {
                     int yfactor = (children[i].y - children[focusIndex].y) * newFocus.second;
                     int xfactor = (children[i].x - children[focusIndex].x) * newFocus.first;
-                    if (yfactor > 0 || xfactor > 0){
-                        focusableChildren.push_back({{(children[i].y - children[focusIndex].y)*(children[i].y - children[focusIndex].y),(children[i].x - children[focusIndex].x)*(children[i].x - children[focusIndex].x)},i});
+                    if (yfactor > 0 || xfactor > 0) {
+                        focusableChildren.push_back(
+                                {{(children[i].y - children[focusIndex].y) * (children[i].y - children[focusIndex].y),
+                                  (children[i].x - children[focusIndex].x) * (children[i].x - children[focusIndex].x)},
+                                 i});
                     }
                 }
             }

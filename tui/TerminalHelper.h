@@ -1,4 +1,5 @@
 #pragma once
+
 #include <utility>
 #include <vector>
 #include <termios.h>
@@ -15,9 +16,13 @@ namespace Memory::tui {
         static termios oldTerminalSettings;
     public:
         static TerminalInfo getTerminalInfo();
+
         static void clearScreen();
+
         static void setupTerminal();
-        static void pushToTerminal(const std::vector<char>& framebuffer);
+
+        static void pushToTerminal(const std::vector<char> &framebuffer);
+
         static void restoreTerminal();
     };
 }

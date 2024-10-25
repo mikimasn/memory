@@ -1,39 +1,58 @@
 #include "../UI/Element.h"
 #include "Text.h"
 
-namespace Memory::tui{
-    struct InputRestrictions{
+namespace Memory::tui {
+    struct InputRestrictions {
         bool allowNumbers = true;
         bool allowLetters = true;
         bool allowSpecialChars = true;
-        bool allowSpace = true ;
+        bool allowSpace = true;
     };
-    class InputBox: public Element {
+
+    class InputBox : public Element {
     private:
         Text textElement;
-        int pointer=0;
+        int pointer = 0;
+
         void init(const ElementSize &size);
+
         InputRestrictions restrictions;
     public:
-        explicit InputBox(const ElementSize& size, const ElementParent& parent, InputRestrictions restrictions={}): Element(size, parent), textElement({size.width,1},{this,this->addChild(&textElement,0,0)},""), restrictions(restrictions){
+        explicit InputBox(const ElementSize &size, const ElementParent &parent, InputRestrictions restrictions = {})
+                : Element(size, parent), textElement({size.width, 1}, {this, this->addChild(&textElement, 0, 0)}, ""),
+                  restrictions(restrictions) {
             init(size);
         };
-        explicit InputBox(const ElementSize& size, InputRestrictions restrictions={}): Element(size), textElement({size.width,1},{this,this->addChild(&textElement,0,0)},""), restrictions(restrictions){
+
+        explicit InputBox(const ElementSize &size, InputRestrictions restrictions = {}) : Element(size),
+                                                                                          textElement({size.width, 1},
+                                                                                                      {this,
+                                                                                                       this->addChild(
+                                                                                                               &textElement,
+                                                                                                               0, 0)},
+                                                                                                      ""),
+                                                                                          restrictions(restrictions) {
             init(size);
         };
-        std::vector<char>& render(bool shouldNotifyParent) final{
+
+        std::vector<char> &render(bool shouldNotifyParent) final {
             return Element::render(shouldNotifyParent);
         };
-        ElementSize offerSize(ElementSize size) final{
+
+        ElementSize offerSize(ElementSize size) final {
             return currentsize;
         };
-        InputActionResult handleInput(InputSignal& c) final;
+
+        InputActionResult handleInput(InputSignal &c) final;
+
         void setFocus(bool focused) final;
-        bool canTakeFocus() final{
+
+        bool canTakeFocus() final {
             return true;
         };
-        std::string getText(){
-            return std::string(textElement.text.begin(),textElement.text.begin()+pointer);
+
+        std::string getText() {
+            return std::string(textElement.text.begin(), textElement.text.begin() + pointer);
         };
     };
 }

@@ -1,6 +1,6 @@
 #pragma once
 namespace Memory::tui {
-    enum InputActionResult{
+    enum InputActionResult {
         VOID,
         MOVE_UP,
         MOVE_DOWN,
@@ -8,7 +8,7 @@ namespace Memory::tui {
         MOVE_RIGHT,
         NOT_HANDLED
     };
-    enum InputGroup{
+    enum InputGroup {
         ARROW_KEYS,
         ENTER,
         NUMBERS,
@@ -16,14 +16,17 @@ namespace Memory::tui {
         BACKSPACE,
         UNKNOWN,
     };
-    struct InputSignal{
+    struct InputSignal {
         InputGroup group;
         char c;
     };
-    class InputHandler{
+
+    class InputHandler {
     public:
-        static InputSignal parseInput(char* c);
+        static InputSignal parseInput(char *c);
+
         static InputActionResult convertArrowKeys(InputSignal signal);
+
         static InputSignal blockForInput();
     };
 }

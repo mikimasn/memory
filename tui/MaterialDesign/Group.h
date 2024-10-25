@@ -1,12 +1,13 @@
 #pragma once
+
 #include "../UI/Element.h"
 
-namespace Memory::tui{
-    class Group: public Element{
+namespace Memory::tui {
+    class Group : public Element {
     public:
-        explicit Group(const ElementSize &size,const ElementParent &parent) : Element(size, parent) {};
+        explicit Group(const ElementSize &size, const ElementParent &parent) : Element(size, parent) {};
 
-        std::vector<char> &render(bool shouldNotifyParent) final{
+        std::vector<char> &render(bool shouldNotifyParent) final {
             return Element::render(shouldNotifyParent);
         }
 
@@ -17,6 +18,7 @@ namespace Memory::tui{
         }
 
         void setFocus(bool focused) final {};
+
         bool canTakeFocus() final {
             return Element::canTakeFocus();
         }

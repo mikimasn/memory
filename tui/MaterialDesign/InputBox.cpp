@@ -1,22 +1,23 @@
 #include "InputBox.h"
 #include <iostream>
+
 Memory::tui::InputActionResult Memory::tui::InputBox::handleInput(Memory::tui::InputSignal &c) {
 
-    if(c.group==InputGroup::TEXT||c.group==InputGroup::NUMBERS){
-        if(c.group==InputGroup::TEXT&&!restrictions.allowLetters) return InputActionResult::VOID;
-        if(c.group==InputGroup::NUMBERS&&!restrictions.allowNumbers) return InputActionResult::VOID;
-        if(pointer==textElement.text.size()) return InputActionResult::VOID;
-        textElement.text[pointer]&=~HIGHLIGHT_TEXT;
-        textElement.text[pointer++]=c.c;
-        if(pointer<textElement.text.size())textElement.text[pointer]|=HIGHLIGHT_TEXT;
+    if (c.group == InputGroup::TEXT || c.group == InputGroup::NUMBERS) {
+        if (c.group == InputGroup::TEXT && !restrictions.allowLetters) return InputActionResult::VOID;
+        if (c.group == InputGroup::NUMBERS && !restrictions.allowNumbers) return InputActionResult::VOID;
+        if (pointer == textElement.text.size()) return InputActionResult::VOID;
+        textElement.text[pointer] &= ~HIGHLIGHT_TEXT;
+        textElement.text[pointer++] = c.c;
+        if (pointer < textElement.text.size())textElement.text[pointer] |= HIGHLIGHT_TEXT;
         textElement.render(true);
         return InputActionResult::VOID;
     }
-    if(c.group==InputGroup::BACKSPACE){
-        if(pointer==0) return InputActionResult::VOID;
-        textElement.text[pointer]&=~HIGHLIGHT_TEXT;
-        textElement.text[--pointer]='_';
-        textElement.text[pointer]|=HIGHLIGHT_TEXT;
+    if (c.group == InputGroup::BACKSPACE) {
+        if (pointer == 0) return InputActionResult::VOID;
+        textElement.text[pointer] &= ~HIGHLIGHT_TEXT;
+        textElement.text[--pointer] = '_';
+        textElement.text[pointer] |= HIGHLIGHT_TEXT;
         textElement.render(true);
         return InputActionResult::VOID;
     }
@@ -24,12 +25,12 @@ Memory::tui::InputActionResult Memory::tui::InputBox::handleInput(Memory::tui::I
 }
 
 void Memory::tui::InputBox::setFocus(bool focused) {
-    if(focused) textElement.text[pointer]|=HIGHLIGHT_TEXT;
-    else textElement.text[pointer]&=~HIGHLIGHT_TEXT;
+    if (focused) textElement.text[pointer] |= HIGHLIGHT_TEXT;
+    else textElement.text[pointer] &= ~HIGHLIGHT_TEXT;
     textElement.render(true);
 }
 
 void Memory::tui::InputBox::init(const ElementSize &size) {
     framebuffer.resize(size.width * size.height);
-    for(int i=0;i<size.width;i++) textElement.text.push_back('_');
+    for (int i = 0; i < size.width; i++) textElement.text.push_back('_');
 }

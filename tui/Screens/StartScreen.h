@@ -1,4 +1,5 @@
 #pragma once
+
 #include "../UI/Window.h"
 #include "../Functional/Interupts.h"
 #include "../MaterialDesign/Button.h"
@@ -47,20 +48,21 @@ namespace Memory::tui {
                                                                                                    this->getSize().height /
                                                                                                    2)}),
                                                             group(ElementSize{20, 5}, '#'),
-                                                            title(){
+                                                            title() {
             startButton.updateParent(ElementParent{&group, group.addChild(&startButton, 1, 1)});
             loadButton.updateParent(ElementParent{&group, group.addChild(&loadButton, 1, 2)});
             closeButton.updateParent(ElementParent{&group, group.addChild(&closeButton, 1, 3)});
             title.updateParent(ElementParent{&upperpart, upperpart.addChild(&title, 0, 0)});
             group.updateParent(ElementParent{&lowerpart, lowerpart.addChild(&group, 0, 0)});
-            Positioner::center(lowerpart,lowerpart.getChild(0));
-            Positioner::center(upperpart,upperpart.getChild(0));
+            Positioner::center(lowerpart, lowerpart.getChild(0));
+            Positioner::center(upperpart, upperpart.getChild(0));
             //if height of upperpart is smaller then the title do not render it
-            if(upperpart.getSize().height < title.getSize().height){
-                upperpart.getChild(0).visible=false;
+            if (upperpart.getSize().height < title.getSize().height) {
+                upperpart.getChild(0).visible = false;
             }
             instance = this;
         };
+
         StartScreen *getInstance() {
             return instance;
         }

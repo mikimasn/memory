@@ -5,8 +5,9 @@
 #include <csignal>
 
 namespace Memory::tui {
-     termios TerminalHelper::oldTerminalSettings;
-     TerminalInfo TerminalHelper::getTerminalInfo() {
+    termios TerminalHelper::oldTerminalSettings;
+
+    TerminalInfo TerminalHelper::getTerminalInfo() {
         struct winsize w;
         ioctl(STDIN_FILENO, TIOCGWINSZ, &w);
         return {w.ws_col, w.ws_row};
@@ -17,13 +18,13 @@ namespace Memory::tui {
     }
 
     void TerminalHelper::setupTerminal() {
-        std::cout<<"\033[?25l";
+        std::cout << "\033[?25l";
         struct termios raw;
         struct termios orig_termios;
 
         // Get current terminal attributes and save them in orig_termios
         tcgetattr(STDIN_FILENO, &orig_termios);
-        TerminalHelper::oldTerminalSettings=orig_termios;
+        TerminalHelper::oldTerminalSettings = orig_termios;
         raw = orig_termios;  // Make a copy of the original settings
 
         // Disable canonical mode, echoing
@@ -34,25 +35,26 @@ namespace Memory::tui {
         // Set the terminal to raw mode
         tcsetattr(STDIN_FILENO, TCSAFLUSH, &raw);
     }
+
     void TerminalHelper::restoreTerminal() {
-        std::cout<<"\033[?25h";
+        std::cout << "\033[?25h";
         tcsetattr(STDIN_FILENO, TCSAFLUSH, &TerminalHelper::oldTerminalSettings);
-     }
+    }
 
     void TerminalHelper::pushToTerminal(const std::vector<char> &framebuffer) {
         std::string output;
-        bool isHighliting=false;
-        for (int i=0;i<framebuffer.size();i++){
+        bool isHighliting = false;
+        for (int i = 0; i < framebuffer.size(); i++) {
             char c = framebuffer[i];
-            if(c&HIGHLIGHT_TEXT&&!isHighliting){
+            if (c & HIGHLIGHT_TEXT && !isHighliting) {
                 output += "\033[7m";
-                isHighliting=true;
+                isHighliting = true;
             }
-            if(!(c&HIGHLIGHT_TEXT)&&isHighliting){
+            if (!(c & HIGHLIGHT_TEXT) && isHighliting) {
                 output += "\033[27m";
-                isHighliting=false;
+                isHighliting = false;
             }
-            if(isHighliting) c &= ~HIGHLIGHT_TEXT;
+            if (isHighliting) c &= ~HIGHLIGHT_TEXT;
             output += c;
 
         }

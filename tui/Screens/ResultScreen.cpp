@@ -6,23 +6,22 @@ void Memory::tui::ResultScreen::closeDialog() {
 }
 
 void Memory::tui::ResultScreen::update(Memory::game::GameResult result, const string &name) {
-    if(result==Memory::game::GameResult::Draw) {
+    if (result == Memory::game::GameResult::Draw) {
         Title.text = "Draw!";
         Desc.text = "The game ended in a draw!";
-    }
-    else {
+    } else {
         Title.text = name + " Wins!";
-        Desc.text = name+" has won the game!";
+        Desc.text = name + " has won the game!";
     }
 
     Title.offerSize({(int) Title.text.size(), 1});
-    Desc.offerSize({(int) Desc.text.size(),1});
+    Desc.offerSize({(int) Desc.text.size(), 1});
     centerElements();
 }
 
 void Memory::tui::ResultScreen::centerElements() {
     Positioner::center(*this, this->getChild(0));
-    Positioner::center(frame, frame.getChild(0),{true,false});
-    Positioner::center(frame, frame.getChild(1),{true,false});
-    Positioner::center(frame, frame.getChild(2),{true,false});
+    Positioner::center(frame, frame.getChild(0), {true, false});
+    Positioner::center(frame, frame.getChild(1), {true, false});
+    Positioner::center(frame, frame.getChild(2), {true, false});
 }

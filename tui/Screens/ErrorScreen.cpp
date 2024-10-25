@@ -7,7 +7,7 @@ void Memory::tui::ErrorScreen::closeError() {
 
 void Memory::tui::ErrorScreen::centerElements() {
     Positioner::center(*this, this->getChild(0));
-    Positioner::center(frame, frame.getChild(0),{true,false});
-    Positioner::center(frame, frame.getChild(1),{true,false});
-    Positioner::center(frame, frame.getChild(2),{true,false});
+    Positioner::center(frame, frame.getChild(0), {true, false});
+    Positioner::center(frame, frame.getChild(1), {true, false});
+    Positioner::center(frame, frame.getChild(2), {true, false});
 }

@@ -1,4 +1,5 @@
 #pragma once
+
 #include "../UI/Element.h"
 #include <string>
 
@@ -9,7 +10,10 @@ namespace Memory::tui {
         bool highlighted = false;
     public:
         std::string text;
-        explicit Text(const ElementSize &size, const ElementParent &parent, std::string text) : Element(size, parent), text(std::move(text)) {};
+
+        explicit Text(const ElementSize &size, const ElementParent &parent, std::string text) : Element(size, parent),
+                                                                                                text(std::move(
+                                                                                                        text)) {};
 
         explicit Text(const ElementSize &size, std::string text) : Element(size), text(std::move(text)) {};
 
@@ -22,10 +26,12 @@ namespace Memory::tui {
         }
 
         void setFocus(bool focused) final {};
+
         void setHighlighted(bool highlighted, bool rerender = true) {
             this->highlighted = highlighted;
-            if(rerender) render(true);
+            if (rerender) render(true);
         }
+
         bool canTakeFocus() final {
             return false;
         }

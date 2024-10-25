@@ -1,20 +1,22 @@
 #pragma once
+
 #include <vector>
 #include <string>
 
 namespace Memory::game {
-    enum GameAction{
+    enum GameAction {
         Void,
         Score,
         SwitchPlayer,
         EndGame
     };
-    enum GameResult{
+    enum GameResult {
         Player1,
         Player2,
         Draw,
         NotFinished
     };
+
     class Game {
     private:
         int seed;
@@ -31,29 +33,38 @@ namespace Memory::game {
         GameResult result = NotFinished;
     public:
         explicit Game(int seed, int width, int height, std::string &player1Name, std::string &player2Name);
+
         GameAction discover(int index);
-        GameResult getResult(){
+
+        GameResult getResult() {
             return result;
         };
-        std::pair<int,int> getScores(){
+
+        std::pair<int, int> getScores() {
             return {score1, score2};
         };
-        std::pair<std::string,std::string> getNames(){
+
+        std::pair<std::string, std::string> getNames() {
             return {player1Name, player2Name};
         };
-        std::vector<short>& getCards(){
+
+        std::vector<short> &getCards() {
             return cards;
         };
-        std::vector<bool>& getDiscovered(){
+
+        std::vector<bool> &getDiscovered() {
             return discovered;
         };
-        int getSeed() const{
+
+        int getSeed() const {
             return seed;
         }
-        std::pair<int,int> getDimensions(){
+
+        std::pair<int, int> getDimensions() {
             return {width, height};
         }
-        int getCurrentPlayer(){
+
+        int getCurrentPlayer() {
             return currentPlayer;
         }
     };

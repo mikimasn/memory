@@ -1,6 +1,7 @@
 #include "MemoryText.h"
 #include <string>
 #include <vector>
+
 std::string toPrint = " /$$      /$$                                                      "
                       "| $$$    /$$$                                                      "
                       "| $$$$  /$$$$  /$$$$$$  /$$$$$$/$$$$   /$$$$$$   /$$$$$$  /$$   /$$"
@@ -12,6 +13,7 @@ std::string toPrint = " /$$      /$$                                            
                       "                                                          /$$  | $$"
                       "                                                         |  $$$$$$/"
                       "                                                          \\______/ ";
+
 std::vector<char> &Memory::tui::MemoryText::render(bool shouldNotifyParent) {
     framebuffer.assign(currentsize.width * currentsize.height, ' ');
     for (int i = 0; i < toPrint.size(); i++) {

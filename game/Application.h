@@ -5,17 +5,19 @@
 #include "../tui/Screens/GameScreen.h"
 #include "../tui/Screens/ResultScreen.h"
 
-namespace Memory::game{
-    enum Screens{
-        Start=0,
-        Setup=1,
-        Error=2,
-        Gameplay=3,
-        Result=4
+namespace Memory::game {
+    enum Screens {
+        Start = 0,
+        Setup = 1,
+        Error = 2,
+        Gameplay = 3,
+        Result = 4
     };
+
     class Application {
     private:
         static void initiliaze();
+
         static Memory::tui::Window window;
         static Memory::tui::StartScreen startScreen;
         static Memory::tui::SetupScreen setupScreen;
@@ -27,10 +29,15 @@ namespace Memory::game{
 
     public:
         static void start();
+
         static void goToSetup();
+
         static void throwError(const std::string &message);
+
         static void closeError();
+
         static void createAndStartGame(std::string &player1, std::string &player2, int width, int height);
+
         static void showGameResult();
     };
 }

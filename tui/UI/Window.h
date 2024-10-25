@@ -1,54 +1,69 @@
 #pragma once
+
 #include "Element.h"
 #include <stack>
 
-namespace Memory::tui{
-    class Sheet: public Element{
+namespace Memory::tui {
+    class Sheet : public Element {
     public:
-        explicit Sheet(const ElementParent parent): Element(TerminalHelper::getTerminalInfo(),parent){};
-        std::vector<char>& render(bool shouldNotifyParent) override{
+        explicit Sheet(const ElementParent parent) : Element(TerminalHelper::getTerminalInfo(), parent) {};
+
+        std::vector<char> &render(bool shouldNotifyParent) override {
             framebuffer.assign(currentsize.width * currentsize.height, 0);
             return Element::render(shouldNotifyParent);
         };
-        ElementSize offerSize(ElementSize size) final{
+
+        ElementSize offerSize(ElementSize size) final {
             return currentsize;
         };
-        InputActionResult handleInput(InputSignal& c) override{
+
+        InputActionResult handleInput(InputSignal &c) override {
             return Element::handleInput(c);
         };
+
         void setFocus(bool focused) final {};
     };
-    class Window: public Element {
+
+    class Window : public Element {
     private:
         std::vector<int> focusStack;
-        static Window* instance;
+        static Window *instance;
     protected:
         void pushToTerminal();
+
     public:
-        explicit Window(): Element(TerminalHelper::getTerminalInfo()){
+        explicit Window() : Element(TerminalHelper::getTerminalInfo()) {
             Memory::tui::TerminalHelper::setupTerminal();
-            Window::instance=this;
+            Window::instance = this;
         };
-        std::vector<char>& render(bool shouldNotifyParent) final;
+
+        std::vector<char> &render(bool shouldNotifyParent) final;
+
         ElementSize offerSize(ElementSize size) final;
-        void pushFocus(int index){
+
+        void pushFocus(int index) {
             focusStack.push_back(index);
         };
-        void popFocus(){
+
+        void popFocus() {
             focusStack.pop_back();
             this->flushFramebuffer();
         };
-        void clearFocus(){
+
+        void clearFocus() {
             focusStack.clear();
             this->flushFramebuffer();
         };
-        InputActionResult handleInput(InputSignal& c) final{
-            return children[focusStack[focusStack.size()-1]].element->handleInput(c);
+
+        InputActionResult handleInput(InputSignal &c) final {
+            return children[focusStack[focusStack.size() - 1]].element->handleInput(c);
         };
+
         void setFocus(bool focused) final {};
 
         void childRenderCallback(int index) final;
-        static Window *getInstance(){
+
+        static Window *getInstance() {
             return instance;
         };
     };

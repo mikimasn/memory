@@ -4,8 +4,8 @@
 
 namespace Memory::tui {
 
-    InputSignal InputHandler::parseInput(char* c) {
-        switch(c[0]){
+    InputSignal InputHandler::parseInput(char *c) {
+        switch (c[0]) {
             case '\033':
                 switch (c[2]) {
                     case 'A':
@@ -35,10 +35,10 @@ namespace Memory::tui {
     }
 
     InputActionResult InputHandler::convertArrowKeys(InputSignal signal) {
-        if(signal.group != ARROW_KEYS){
+        if (signal.group != ARROW_KEYS) {
             return NOT_HANDLED;
         }
-        switch(signal.c){
+        switch (signal.c) {
             case 0:
                 return MOVE_UP;
             case 1:
@@ -56,7 +56,7 @@ namespace Memory::tui {
         char c[3];
         read(STDIN_FILENO, c, 3);
         //detect when the input stream is closed
-        if(c[0]==0){
+        if (c[0] == 0) {
             Interupts::handleTermination(0);
         }
         return parseInput(c);
