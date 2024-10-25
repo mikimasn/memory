@@ -53,5 +53,8 @@ namespace Memory::game {
         std::pair<int,int> getDimensions(){
             return {width, height};
         }
+        int getCurrentPlayer(){
+            return currentPlayer;
+        }
     };
 }

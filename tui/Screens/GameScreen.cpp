@@ -8,6 +8,7 @@ void Memory::tui::GameScreen::cardCallback(int id) {
     auto result = instance->game->discover(id);
     if(result==Memory::game::GameAction::Score){
         instance->lastCard = -1;
+        instance->render(true);
     }
     else if(result==Memory::game::GameAction::Void){
         instance->lastCard = id;
