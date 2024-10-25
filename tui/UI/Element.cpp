@@ -51,7 +51,8 @@ namespace Memory::tui {
                     int resultCell = relativeRow * currentsize.width + relativeCol;
                     if (childFrameBuffer[row * childSize.width + col] == 0) continue;
                     int childCell = row * childSize.width + col;
-                    framebuffer[resultCell] = childFrameBuffer[childCell];
+                    if(shouldRender) focusOrder[resultCell] = child.id;
+                    if(focusOrder[resultCell]==child.id) framebuffer[resultCell] = childFrameBuffer[childCell];
                 }
             }
         }
@@ -123,7 +124,7 @@ namespace Memory::tui {
     }
 
     void Element::init() {
-        framebuffer.resize(currentsize.width * currentsize.height);
+        this->resizeFramebuffer(currentsize);
     }
 
     bool Element::canTakeFocus() {

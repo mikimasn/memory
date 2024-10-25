@@ -16,7 +16,7 @@ namespace Memory::tui {
 
         ElementSize offerSize(ElementSize size) final {
             currentsize = size;
-            framebuffer.resize(size.width * size.height);
+            this->resizeFramebuffer(size);
             return currentsize;
         }
 

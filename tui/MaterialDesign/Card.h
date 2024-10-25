@@ -39,7 +39,7 @@ namespace Memory::tui {
 
         ElementSize offerSize(ElementSize size) final {
             currentsize = size;
-            framebuffer.resize(size.width * size.height);
+            resizeFramebuffer(size);
             return currentsize;
         };
 

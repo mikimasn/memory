@@ -1,3 +1,5 @@
+#pragma once
+
 #include "../UI/Window.h"
 #include "../MaterialDesign/InputBox.h"
 #include "../MaterialDesign/FramedElement.h"

@@ -1,5 +1,6 @@
 #include "Application.h"
 #include <random>
+#include <filesystem>
 
 Memory::tui::Window Memory::game::Application::window;
 Memory::tui::StartScreen Memory::game::Application::startScreen = Memory::tui::StartScreen(
@@ -15,6 +16,8 @@ Memory::tui::GameScreen Memory::game::Application::gameScreen = Memory::tui::Gam
 bool Memory::game::Application::isError = false;
 Memory::tui::ResultScreen Memory::game::Application::resultScreen = Memory::tui::ResultScreen(
         Memory::tui::ElementParent{&window, window.addChild(&resultScreen, 0, 0)}, "");
+Memory::tui::SaveScreen Memory::game::Application::saveScreen = Memory::tui::SaveScreen(
+        Memory::tui::ElementParent{&window, window.addChild(&saveScreen, 0, 0)});
 
 void Memory::game::Application::initiliaze() {
     Memory::tui::Interupts::setupInterupts();
@@ -67,5 +70,19 @@ void Memory::game::Application::showGameResult() {
     else if (res == GameResult::Player2) name = game.getNames().second;
     resultScreen.update(res, name);
     window.pushFocus(Screens::Result);
+    window.render(true);
+}
+
+std::string Memory::game::Application::getCwd() {
+    return std::filesystem::current_path().string();
+}
+
+void Memory::game::Application::popWindowStack() {
+    window.popFocus();
+    window.render(true);
+}
+
+void Memory::game::Application::showSaveDialog() {
+    window.pushFocus(Screens::Save);
     window.render(true);
 }

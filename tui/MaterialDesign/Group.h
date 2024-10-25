@@ -6,6 +6,7 @@ namespace Memory::tui {
     class Group : public Element {
     public:
         explicit Group(const ElementSize &size, const ElementParent &parent) : Element(size, parent) {};
+        explicit Group(const ElementSize &size) : Element(size) {};
 
         std::vector<char> &render(bool shouldNotifyParent) final {
             return Element::render(shouldNotifyParent);
@@ -13,7 +14,7 @@ namespace Memory::tui {
 
         ElementSize offerSize(ElementSize size) final {
             currentsize = size;
-            framebuffer.resize(size.width * size.height);
+            this->resizeFramebuffer(size);
             return currentsize;
         }
 

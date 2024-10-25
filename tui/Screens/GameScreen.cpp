@@ -28,5 +28,5 @@ void Memory::tui::GameScreen::timerCallback() {
 }
 
 void Memory::tui::GameScreen::saveCallback() {
-    return;
+    Memory::game::Application::showSaveDialog();
 }

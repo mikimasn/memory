@@ -40,6 +40,7 @@ namespace Memory::tui {
         void notifyParent();
 
         std::vector<char> framebuffer;
+        std::vector<int> focusOrder;
         ElementSize currentsize;
         int focusIndex = -1;
     public:
@@ -91,7 +92,16 @@ namespace Memory::tui {
 
         void flushFramebuffer() {
             framebuffer.assign(currentsize.width * currentsize.height, 0);
+            focusOrder.assign(currentsize.width * currentsize.height, -1);
         };
+        void resizeFramebuffer(int width, int height){
+            framebuffer.resize(width * height);
+            focusOrder.resize(width * height);
+            flushFramebuffer();
+        }
+        void resizeFramebuffer(ElementSize size) {
+            resizeFramebuffer(size.width, size.height);
+        }
     };
 
 }

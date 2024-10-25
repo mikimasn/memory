@@ -9,7 +9,7 @@ namespace Memory::tui {
         explicit Sheet(const ElementParent parent) : Element(TerminalHelper::getTerminalInfo(), parent) {};
 
         std::vector<char> &render(bool shouldNotifyParent) override {
-            framebuffer.assign(currentsize.width * currentsize.height, 0);
+            this->flushFramebuffer();
             return Element::render(shouldNotifyParent);
         };
 

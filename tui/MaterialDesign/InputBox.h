@@ -1,3 +1,4 @@
+#pragma once
 #include "../UI/Element.h"
 #include "Text.h"
 
@@ -54,6 +55,13 @@ namespace Memory::tui {
         std::string getText() {
             return std::string(textElement.text.begin(), textElement.text.begin() + pointer);
         };
+        void setInput(std::string input){
+            for (int i = 0; i < input.size(); i++) {
+                textElement.text[i] = input[i];
+            }
+            pointer = input.size();
+            this->render(true);
+        }
     };
 }
 

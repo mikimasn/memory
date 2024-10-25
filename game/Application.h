@@ -1,9 +1,12 @@
+#pragma once
+
 #include "../tui/UI/Window.h"
 #include "../tui/Screens/StartScreen.h"
 #include "../tui/Screens/SetupScreen.h"
 #include "../tui/Screens/ErrorScreen.h"
 #include "../tui/Screens/GameScreen.h"
 #include "../tui/Screens/ResultScreen.h"
+#include "../tui/Screens/SaveScreen.h"
 
 namespace Memory::game {
     enum Screens {
@@ -11,7 +14,8 @@ namespace Memory::game {
         Setup = 1,
         Error = 2,
         Gameplay = 3,
-        Result = 4
+        Result = 4,
+        Save = 5
     };
 
     class Application {
@@ -26,6 +30,8 @@ namespace Memory::game {
         static Memory::tui::GameScreen gameScreen;
         static Memory::game::Game game;
         static Memory::tui::ResultScreen resultScreen;
+        static Memory::tui::SaveScreen saveScreen;
+
 
     public:
         static void start();
@@ -36,9 +42,15 @@ namespace Memory::game {
 
         static void closeError();
 
+        static void popWindowStack();
+
         static void createAndStartGame(std::string &player1, std::string &player2, int width, int height);
 
+        static void showSaveDialog();
+
         static void showGameResult();
+
+        static std::string getCwd();
     };
 }
 

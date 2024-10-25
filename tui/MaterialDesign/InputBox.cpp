@@ -31,6 +31,6 @@ void Memory::tui::InputBox::setFocus(bool focused) {
 }
 
 void Memory::tui::InputBox::init(const ElementSize &size) {
-    framebuffer.resize(size.width * size.height);
+    this->resizeFramebuffer(size);
     for (int i = 0; i < size.width; i++) textElement.text.push_back('_');
 }
