@@ -57,5 +57,7 @@ namespace Memory::tui {
             centerElements();
             errorDescription.text = message;
         }
+        std::vector<char> &render(bool shouldNotifyParent) final;
+
     };
 }

@@ -112,11 +112,15 @@ namespace Memory::tui {
                     }
                 }
             }
-            if (focusableChildren.size() == 0) return InputActionResult::NOT_HANDLED;
             children[focusIndex].element->setFocus(false);
+            focusIndex = -1;
+            if (focusableChildren.size() == 0) {
+                return InputActionResult::NOT_HANDLED;
+            }
             std::sort(focusableChildren.begin(), focusableChildren.end());
             focusIndex = focusableChildren[0].second;
             children[focusIndex].element->setFocus(true);
+            children[focusIndex].element->handleInput(c);
             return InputActionResult::VOID;
         }
         return res;

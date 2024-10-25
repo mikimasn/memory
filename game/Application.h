@@ -50,6 +50,8 @@ namespace Memory::game {
 
         static void showGameResult();
 
+        static void saveGame(std::string path);
+
         static std::string getCwd();
     };
 }

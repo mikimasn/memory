@@ -7,8 +7,6 @@
 #include "../../game/Game.h"
 #include "../MaterialDesign/InputBox.h"
 #include "../MaterialDesign/Group.h"
-//#include "../../game/Application.h"
-
 namespace Memory::tui {
     class SaveScreen : public Sheet {
     private:
@@ -23,15 +21,15 @@ namespace Memory::tui {
         static void closeDialog();
         static void saveAndClose();
 
-        SaveScreen *instance;
+        static SaveScreen *instance;
 
         void centerElements();
 
     public:
         explicit SaveScreen(const ElementParent &parent);
 
-        SaveScreen *getInstance() {
-            return instance;
+        static SaveScreen *getInstance() {
+            return SaveScreen::instance;
         }
     };
 }

@@ -18,10 +18,15 @@ namespace Memory::tui {
             return currentsize;
         }
 
-        void setFocus(bool focused) final {};
+        void setFocus(bool focused) final {
+
+        };
 
         bool canTakeFocus() final {
             return Element::canTakeFocus();
+        }
+        InputActionResult handleInput(InputSignal &c) final {
+            return Element::handleInput(c);
         }
     };
 }

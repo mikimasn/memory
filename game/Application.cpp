@@ -1,6 +1,10 @@
 #include "Application.h"
 #include <random>
 #include <filesystem>
+#include <unistd.h>
+#include <errno.h>
+#include <fcntl.h>
+#include <cstring>
 
 Memory::tui::Window Memory::game::Application::window;
 Memory::tui::StartScreen Memory::game::Application::startScreen = Memory::tui::StartScreen(
@@ -85,4 +89,12 @@ void Memory::game::Application::popWindowStack() {
 void Memory::game::Application::showSaveDialog() {
     window.pushFocus(Screens::Save);
     window.render(true);
+}
+
+void Memory::game::Application::saveGame(std::string path) {
+    int fd = open(path.c_str(), O_WRONLY | O_CREAT | O_EXCL, S_IRWXU|S_IRGRP|S_IROTH);
+    if(fd == -1) throw std::runtime_error("Failed to open file OS returned error: "+std::string(std::strerror(errno)));
+    auto dump = game.dumpGame();
+    if(write(fd, dump.data(), dump.size()) == -1) throw std::runtime_error("Failed to write to file OS returned error: "+std::string(std::strerror(errno)));
+    close(fd);
 }

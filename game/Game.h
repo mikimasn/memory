@@ -31,8 +31,10 @@ namespace Memory::game {
         int currentPlayer = 0;
         int nowDiscovered = -1;
         GameResult result = NotFinished;
+        void generateFromSeed();
     public:
         explicit Game(int seed, int width, int height, std::string &player1Name, std::string &player2Name);
+        explicit Game(std::vector<char> &gameDump);
 
         GameAction discover(int index);
 
@@ -67,5 +69,6 @@ namespace Memory::game {
         int getCurrentPlayer() {
             return currentPlayer;
         }
+        std::vector<char> dumpGame();
     };
 }
