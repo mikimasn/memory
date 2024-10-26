@@ -1,10 +1,10 @@
 cmake_minimum_required(VERSION 3.28)
-project(MemoryGejanci)
+project(Memory)
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_BUILD_TYPE Debug)
 
-add_executable(MemoryGejanci main.cpp
+add_executable(Memory main.cpp
         tui/TerminalHelper.cpp
         tui/TerminalHelper.h
         tui/UI/Element.cpp
