@@ -94,11 +94,13 @@ namespace Memory::tui {
             framebuffer.assign(currentsize.width * currentsize.height, 0);
             focusOrder.assign(currentsize.width * currentsize.height, -1);
         };
-        void resizeFramebuffer(int width, int height){
+
+        void resizeFramebuffer(int width, int height) {
             framebuffer.resize(width * height);
             focusOrder.resize(width * height);
             flushFramebuffer();
         }
+
         void resizeFramebuffer(ElementSize size) {
             resizeFramebuffer(size.width, size.height);
         }

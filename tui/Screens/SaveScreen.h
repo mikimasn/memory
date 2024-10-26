@@ -1,4 +1,5 @@
 #pragma once
+
 #include "../UI/Window.h"
 #include "../MaterialDesign/Text.h"
 #include "../MaterialDesign/Button.h"
@@ -7,6 +8,7 @@
 #include "../../game/Game.h"
 #include "../MaterialDesign/InputBox.h"
 #include "../MaterialDesign/Group.h"
+
 namespace Memory::tui {
     class SaveScreen : public Sheet {
     private:
@@ -19,6 +21,7 @@ namespace Memory::tui {
         Group group;
 
         static void closeDialog();
+
         static void saveAndClose();
 
         static SaveScreen *instance;

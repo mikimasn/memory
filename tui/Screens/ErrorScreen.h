@@ -41,8 +41,6 @@ namespace Memory::tui {
             errorText.updateParent(ElementParent{&frame, frame.addChild(&errorText, 2, 1)});
             closeButton.updateParent(ElementParent{&frame, frame.addChild(&closeButton, 2, 5)});
             centerElements();
-//            auto input = InputSignal{InputGroup::ARROW_KEYS, 0}; DODAM JAK NAPRAWIE DZIECI UPDATUJĄCE NIE SIEBIE WE FRAMEBUFFERZE
-//            this->handleInput(input); // focus close button automatically;
             instance = this;
         }
 
@@ -57,6 +55,7 @@ namespace Memory::tui {
             centerElements();
             errorDescription.text = message;
         }
+
         std::vector<char> &render(bool shouldNotifyParent) final;
 
     };

@@ -31,11 +31,16 @@ namespace Memory::game {
         int currentPlayer = 0;
         int nowDiscovered = -1;
         GameResult result = NotFinished;
+
         void generateFromSeed();
+
     public:
         explicit Game(int seed, int width, int height, std::string &player1Name, std::string &player2Name);
+
         explicit Game(std::vector<char> &gameDump);
+
         static constexpr std::string MagicNumber = "MemoryGameSave";
+
         GameAction discover(int index);
 
         GameResult getResult() {
@@ -69,7 +74,9 @@ namespace Memory::game {
         int getCurrentPlayer() const {
             return currentPlayer;
         }
+
         std::vector<char> dumpGame();
+
         bool isDiscovered(int index) {
             return discovered[index];
         }

@@ -26,6 +26,7 @@ Memory::tui::LoadScreen Memory::game::Application::loadScreen = Memory::tui::Loa
         Memory::tui::ElementParent{&window, window.addChild(&loadScreen, 0, 0)});
 constexpr int MaxSaveFileLength = 1e5;
 char saveFileBuffer[MaxSaveFileLength];
+
 void Memory::game::Application::initiliaze() {
     Memory::tui::Interupts::setupInterupts();
 }
@@ -95,22 +96,26 @@ void Memory::game::Application::showSaveDialog() {
 }
 
 void Memory::game::Application::saveGame(std::string path) {
-    int fd = open(path.c_str(), O_WRONLY | O_CREAT | O_EXCL, S_IRWXU|S_IRGRP|S_IROTH);
-    if(fd == -1) throw std::runtime_error("Failed to open file OS returned error: "+std::string(std::strerror(errno)));
+    int fd = open(path.c_str(), O_WRONLY | O_CREAT | O_EXCL, S_IRWXU | S_IRGRP | S_IROTH);
+    if (fd == -1)
+        throw std::runtime_error("Failed to open file OS returned error: " + std::string(std::strerror(errno)));
     auto dump = game.dumpGame();
-    if(write(fd, dump.data(), dump.size()) == -1) throw std::runtime_error("Failed to write to file OS returned error: "+std::string(std::strerror(errno)));
+    if (write(fd, dump.data(), dump.size()) == -1)
+        throw std::runtime_error("Failed to write to file OS returned error: " + std::string(std::strerror(errno)));
     close(fd);
 }
 
 void Memory::game::Application::loadGame(std::string path) {
     int fd = open(path.c_str(), O_RDONLY);
-    if(fd == -1) throw std::runtime_error("Failed to open file OS returned error: "+std::string(std::strerror(errno)));
+    if (fd == -1)
+        throw std::runtime_error("Failed to open file OS returned error: " + std::string(std::strerror(errno)));
     //read magic number
     std::vector<char> magicNumber(Memory::game::Game::MagicNumber.size());
     int recived = read(fd, saveFileBuffer, MaxSaveFileLength);
-    if(recived == -1) throw std::runtime_error("Failed to read from file OS returned error: "+std::string(std::strerror(errno)));
-    if(recived == MaxSaveFileLength) throw std::runtime_error("File is too large");
-    vector<char> file(saveFileBuffer, saveFileBuffer+recived);
+    if (recived == -1)
+        throw std::runtime_error("Failed to read from file OS returned error: " + std::string(std::strerror(errno)));
+    if (recived == MaxSaveFileLength) throw std::runtime_error("File is too large");
+    vector<char> file(saveFileBuffer, saveFileBuffer + recived);
     game = Game(file);
     gameScreen.attachGame(&game);
     window.clearFocus();

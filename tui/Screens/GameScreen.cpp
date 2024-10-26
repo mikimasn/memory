@@ -71,7 +71,7 @@ void Memory::tui::GameScreen::attachGame(Memory::game::Game *gameptr) {
                                                                                j * (cardWidth + cardhspacing),
                                                                                i * (cardHeight + cardvspacing) +
                                                                                1)});
-            if(game->isDiscovered(index)){
+            if (game->isDiscovered(index)) {
                 this->cards[index].setFliped(true);
             }
         }

@@ -6,6 +6,7 @@ namespace Memory::tui {
     class Group : public Element {
     public:
         explicit Group(const ElementSize &size, const ElementParent &parent) : Element(size, parent) {};
+
         explicit Group(const ElementSize &size) : Element(size) {};
 
         std::vector<char> &render(bool shouldNotifyParent) final {
@@ -25,6 +26,7 @@ namespace Memory::tui {
         bool canTakeFocus() final {
             return Element::canTakeFocus();
         }
+
         InputActionResult handleInput(InputSignal &c) final {
             return Element::handleInput(c);
         }

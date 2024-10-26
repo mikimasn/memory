@@ -51,8 +51,8 @@ namespace Memory::tui {
                     int resultCell = relativeRow * currentsize.width + relativeCol;
                     if (childFrameBuffer[row * childSize.width + col] == 0) continue;
                     int childCell = row * childSize.width + col;
-                    if(shouldRender) focusOrder[resultCell] = child.id;
-                    if(focusOrder[resultCell]==child.id) framebuffer[resultCell] = childFrameBuffer[childCell];
+                    if (shouldRender) focusOrder[resultCell] = child.id;
+                    if (focusOrder[resultCell] == child.id) framebuffer[resultCell] = childFrameBuffer[childCell];
                 }
             }
         }
