@@ -47,4 +47,6 @@ add_executable(MemoryGejanci main.cpp
         tui/Screens/ResultScreen.h
         tui/Screens/SaveScreen.cpp
         tui/Screens/SaveScreen.h
+        tui/Screens/LoadScreen.cpp
+        tui/Screens/LoadScreen.h
 )

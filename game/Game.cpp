@@ -4,7 +4,6 @@
 #include <set>
 #include <stdexcept>
 
-constexpr std::string MagicNumber = "MemoryGameSave";
 
 Memory::game::Game::Game(int seed, int width, int height, std::string &player1Name, std::string &player2Name) {
     this->seed = seed;
@@ -55,7 +54,7 @@ std::vector<char> convertinttochar(int a){
     return c;
 }
 int convertchartoint(std::vector<char> c){
-    return (c[0] << 24) | (c[1] << 16) | (c[2] << 8) | c[3];
+    return ((unsigned char)c[0] << 24) | ((unsigned char)c[1] << 16) | ((unsigned char)c[2] << 8) | (unsigned char)c[3];
 }
 
 std::vector<char> Memory::game::Game::dumpGame() {

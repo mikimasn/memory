@@ -7,6 +7,7 @@
 #include "../tui/Screens/GameScreen.h"
 #include "../tui/Screens/ResultScreen.h"
 #include "../tui/Screens/SaveScreen.h"
+#include "../tui/Screens/LoadScreen.h"
 
 namespace Memory::game {
     enum Screens {
@@ -15,7 +16,8 @@ namespace Memory::game {
         Error = 2,
         Gameplay = 3,
         Result = 4,
-        Save = 5
+        Save = 5,
+        Load = 6
     };
 
     class Application {
@@ -31,6 +33,7 @@ namespace Memory::game {
         static Memory::game::Game game;
         static Memory::tui::ResultScreen resultScreen;
         static Memory::tui::SaveScreen saveScreen;
+        static Memory::tui::LoadScreen loadScreen;
 
 
     public:
@@ -51,6 +54,10 @@ namespace Memory::game {
         static void showGameResult();
 
         static void saveGame(std::string path);
+
+        static void loadGame(std::string path);
+
+        static void goToLoad();
 
         static std::string getCwd();
     };

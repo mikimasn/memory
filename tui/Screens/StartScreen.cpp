@@ -8,5 +8,5 @@ void Memory::tui::StartScreen::startCallback() {
 }
 
 void Memory::tui::StartScreen::loadCallback() {
-    Interupts::handleTermination(0);
+    Memory::game::Application::goToLoad();
 }

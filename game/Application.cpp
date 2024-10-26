@@ -2,9 +2,9 @@
 #include <random>
 #include <filesystem>
 #include <unistd.h>
-#include <errno.h>
 #include <fcntl.h>
 #include <cstring>
+#include <iostream>
 
 Memory::tui::Window Memory::game::Application::window;
 Memory::tui::StartScreen Memory::game::Application::startScreen = Memory::tui::StartScreen(
@@ -22,7 +22,10 @@ Memory::tui::ResultScreen Memory::game::Application::resultScreen = Memory::tui:
         Memory::tui::ElementParent{&window, window.addChild(&resultScreen, 0, 0)}, "");
 Memory::tui::SaveScreen Memory::game::Application::saveScreen = Memory::tui::SaveScreen(
         Memory::tui::ElementParent{&window, window.addChild(&saveScreen, 0, 0)});
-
+Memory::tui::LoadScreen Memory::game::Application::loadScreen = Memory::tui::LoadScreen(
+        Memory::tui::ElementParent{&window, window.addChild(&loadScreen, 0, 0)});
+constexpr int MaxSaveFileLength = 1e5;
+char saveFileBuffer[MaxSaveFileLength];
 void Memory::game::Application::initiliaze() {
     Memory::tui::Interupts::setupInterupts();
 }
@@ -97,4 +100,25 @@ void Memory::game::Application::saveGame(std::string path) {
     auto dump = game.dumpGame();
     if(write(fd, dump.data(), dump.size()) == -1) throw std::runtime_error("Failed to write to file OS returned error: "+std::string(std::strerror(errno)));
     close(fd);
+}
+
+void Memory::game::Application::loadGame(std::string path) {
+    int fd = open(path.c_str(), O_RDONLY);
+    if(fd == -1) throw std::runtime_error("Failed to open file OS returned error: "+std::string(std::strerror(errno)));
+    //read magic number
+    std::vector<char> magicNumber(Memory::game::Game::MagicNumber.size());
+    int recived = read(fd, saveFileBuffer, MaxSaveFileLength);
+    if(recived == -1) throw std::runtime_error("Failed to read from file OS returned error: "+std::string(std::strerror(errno)));
+    if(recived == MaxSaveFileLength) throw std::runtime_error("File is too large");
+    vector<char> file(saveFileBuffer, saveFileBuffer+recived);
+    game = Game(file);
+    gameScreen.attachGame(&game);
+    window.clearFocus();
+    window.pushFocus(Screens::Gameplay);
+    window.render(true);
+}
+
+void Memory::game::Application::goToLoad() {
+    window.pushFocus(Screens::Load);
+    window.render(true);
 }

@@ -10,6 +10,10 @@ namespace Memory::tui {
     TerminalInfo TerminalHelper::getTerminalInfo() {
         struct winsize w;
         ioctl(STDIN_FILENO, TIOCGWINSZ, &w);
+        if(w.ws_col<20 || w.ws_row<10){
+            std::cerr << "Terminal size is too small. Please resize the terminal to at least 20x10" << std::endl;
+            std::raise(SIGABRT);
+        }
         return {w.ws_col, w.ws_row};
     }
 

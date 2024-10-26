@@ -35,7 +35,7 @@ namespace Memory::game {
     public:
         explicit Game(int seed, int width, int height, std::string &player1Name, std::string &player2Name);
         explicit Game(std::vector<char> &gameDump);
-
+        static constexpr std::string MagicNumber = "MemoryGameSave";
         GameAction discover(int index);
 
         GameResult getResult() {
@@ -66,9 +66,12 @@ namespace Memory::game {
             return {width, height};
         }
 
-        int getCurrentPlayer() {
+        int getCurrentPlayer() const {
             return currentPlayer;
         }
         std::vector<char> dumpGame();
+        bool isDiscovered(int index) {
+            return discovered[index];
+        }
     };
 }
