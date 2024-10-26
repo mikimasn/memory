@@ -22,7 +22,7 @@ namespace Memory::tui {
     }
 
     void TerminalHelper::setupTerminal() {
-        std::cout << "\033[?25l";
+        std::cout << "\033[?25l\033[?1049h\033[?7h";
         struct termios raw;
         struct termios orig_termios;
 
@@ -41,7 +41,7 @@ namespace Memory::tui {
     }
 
     void TerminalHelper::restoreTerminal() {
-        std::cout << "\033[?25h";
+        std::cout << "\033[?25h\033[?1049l\033[?7h";
         tcsetattr(STDIN_FILENO, TCSAFLUSH, &TerminalHelper::oldTerminalSettings);
     }
 
