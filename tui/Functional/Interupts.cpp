@@ -20,9 +20,9 @@ namespace Memory::tui {
         exit(0);
     }
 
-    bool Interupts::callAfter(int ms, void (*callback)()) {
+    bool Interupts::callAfter(int ms, void (*callbackfn)()) {
         if (Interupts::callback != nullptr) return false;
-        Interupts::callback = callback;
+        Interupts::callback = callbackfn;
         sigevent timer;
         timer.sigev_notify = SIGEV_SIGNAL;
         timer.sigev_signo = SIGALRM;

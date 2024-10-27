@@ -2,6 +2,9 @@ cmake_minimum_required(VERSION 3.28)
 project(Memory)
 
 set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++20 -pthread -Wall -Werror")
+set(CMAKE_DEBUG_FLAGS "${CMAKE_DEBUG_FLAGS} -g")
+set(CMAKE_RELEASE_FLAGS "${CMAKE_RELEASE_FLAGS} -O2")
 set(CMAKE_BUILD_TYPE Debug)
 
 add_executable(Memory main.cpp

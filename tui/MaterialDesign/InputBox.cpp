@@ -6,10 +6,10 @@ Memory::tui::InputActionResult Memory::tui::InputBox::handleInput(Memory::tui::I
     if (c.group == InputGroup::TEXT || c.group == InputGroup::NUMBERS) {
         if (c.group == InputGroup::TEXT && !restrictions.allowLetters) return InputActionResult::VOID;
         if (c.group == InputGroup::NUMBERS && !restrictions.allowNumbers) return InputActionResult::VOID;
-        if (pointer == textElement.text.size()) return InputActionResult::VOID;
+        if (pointer == (int)textElement.text.size()) return InputActionResult::VOID;
         textElement.text[pointer] &= ~HIGHLIGHT_TEXT;
         textElement.text[pointer++] = c.c;
-        if (pointer < textElement.text.size())textElement.text[pointer] |= HIGHLIGHT_TEXT;
+        if (pointer < (int)textElement.text.size())textElement.text[pointer] |= HIGHLIGHT_TEXT;
         textElement.render(true);
         return InputActionResult::VOID;
     }

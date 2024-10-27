@@ -46,10 +46,10 @@ void Memory::tui::GameScreen::attachGame(Memory::game::Game *gameptr) {
     auto gameCards = game->getCards();
     this->cards.clear();
     this->cards.reserve(gameCards.size());
-    for (int i = 0; i < gameCards.size(); i++) {
+    for (int i = 0; i < (int)gameCards.size(); i++) {
         this->cards.emplace_back(gameCards[i], cardCallback, i);
     }
-    for (int i = 0; i < gameCards.size(); i++) {
+    for (int i = 0; i < (int)gameCards.size(); i++) {
         this->cards[i].setFliped(false);
         this->cards[i].setFocus(false);
     }
@@ -64,7 +64,7 @@ void Memory::tui::GameScreen::attachGame(Memory::game::Game *gameptr) {
     for (int i = 0; i < height; i++) {
         for (int j = 0; j < width; j++) {
             int index = i * width + j;
-            if (index >= gameCards.size()) {
+            if (index >= (int)gameCards.size()) {
                 break;
             }
             this->cards[index].updateParent(ElementParent{this, this->addChild(&this->cards[index],

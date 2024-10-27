@@ -36,6 +36,8 @@ namespace Memory::tui {
                                                                         startCallback),
                                                             loadButton(ElementSize{18, 1}, std::string("Load game "),
                                                                        loadCallback),
+                                                            group(ElementSize{20, 5}, '#'),
+                                                            title(),
                                                             upperpart(ElementSize{this->getSize().width,
                                                                                   this->getSize().height / 2},
                                                                       ElementParent{this,
@@ -46,9 +48,7 @@ namespace Memory::tui {
                                                                       ElementParent{this,
                                                                                     this->addChild(&lowerpart, 0,
                                                                                                    this->getSize().height /
-                                                                                                   2)}),
-                                                            group(ElementSize{20, 5}, '#'),
-                                                            title() {
+                                                                                                   2)}) {
             startButton.updateParent(ElementParent{&group, group.addChild(&startButton, 1, 1)});
             loadButton.updateParent(ElementParent{&group, group.addChild(&loadButton, 1, 2)});
             closeButton.updateParent(ElementParent{&group, group.addChild(&closeButton, 1, 3)});

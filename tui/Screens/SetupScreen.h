@@ -31,16 +31,16 @@ namespace Memory::tui {
                                                             width({2, 1}, InputRestrictions{true, false, false, false}),
                                                             height({2, 1},
                                                                    InputRestrictions{true, false, false, false}),
-                                                            player1Text({9, 1}, "Player 1:"),
-                                                            player2Text({9, 1}, "Player 2:"),
-                                                            widthText({40, 1}, "Width:"),
-                                                            heightText({40, 1}, "Height:"),
                                                             firstInstruction({38, 1},
                                                                              "Please enter the names of the players"),
                                                             secondInstruction({47, 1},
                                                                               "Please enter the width and height of the board"),
-                                                            startButton({12, 1}, "[Start Game]", startGame),
-                                                            frame({60, 10}, '#') {
+                                                            player1Text({9, 1}, "Player 1:"),
+                                                            player2Text({9, 1}, "Player 2:"),
+                                                            widthText({40, 1}, "Width:"),
+                                                            heightText({40, 1}, "Height:"),
+                                                            frame({60, 10}, '#'),
+                                                            startButton({12, 1}, "[Start Game]", startGame) {
             instance = this;
             frame.updateParent(ElementParent{this, this->addChild(&frame, 0, 0)});
             Positioner::center(*this, this->getChild(0));

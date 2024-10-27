@@ -58,10 +58,10 @@ namespace Memory::tui {
         };
 
         void setInput(std::string input) {
-            for (int i = 0; i < input.size(); i++) {
+            for (int i = 0; i < (int)input.size(); i++) {
                 textElement.text[i] = input[i];
             }
-            pointer = input.size();
+            pointer = (int)input.size();
             this->render(true);
         }
     };

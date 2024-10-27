@@ -48,7 +48,7 @@ namespace Memory::tui {
     void TerminalHelper::pushToTerminal(const std::vector<char> &framebuffer) {
         std::string output;
         bool isHighliting = false;
-        for (int i = 0; i < framebuffer.size(); i++) {
+        for (int i = 0; i < (int)framebuffer.size(); i++) {
             char c = framebuffer[i];
             if (c & HIGHLIGHT_TEXT && !isHighliting) {
                 output += "\033[7m";

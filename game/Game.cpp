@@ -81,7 +81,7 @@ std::vector<char> Memory::game::Game::dumpGame() {
 
 Memory::game::Game::Game(std::vector<char> &gameDump) {
     int i = 0;
-    for (; i < MagicNumber.size(); i++) {
+    for (; i < (int)MagicNumber.size(); i++) {
         if (gameDump[i] != MagicNumber[i]) throw std::invalid_argument("Invalid save file");
     }
     i++;
@@ -109,7 +109,7 @@ Memory::game::Game::Game(std::vector<char> &gameDump) {
     i += 4;
     currentPlayer = convertchartoint({gameDump[i], gameDump[i + 1], gameDump[i + 2], gameDump[i + 3]});
     i += 4;
-    for (; i < gameDump.size(); i++) {
+    for (; i < (int)gameDump.size(); i++) {
         discovered.push_back(gameDump[i]);
     }
     cards.resize(width * height);

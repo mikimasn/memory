@@ -16,7 +16,7 @@ std::string toPrint = " /$$      /$$                                            
 
 std::vector<char> &Memory::tui::MemoryText::render(bool shouldNotifyParent) {
     framebuffer.assign(currentsize.width * currentsize.height, ' ');
-    for (int i = 0; i < toPrint.size(); i++) {
+    for (int i = 0; i < (int)toPrint.size(); i++) {
         framebuffer[i] = toPrint[i];
     }
     return framebuffer;
