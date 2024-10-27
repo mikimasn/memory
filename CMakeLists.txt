@@ -3,9 +3,9 @@ project(Memory)
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++20 -pthread -Wall -Werror")
-set(CMAKE_DEBUG_FLAGS "${CMAKE_DEBUG_FLAGS} -g")
-set(CMAKE_RELEASE_FLAGS "${CMAKE_RELEASE_FLAGS} -O2")
-set(CMAKE_BUILD_TYPE Debug)
+set(CMAKE_CXX_FLAGS_DEBUG  "${CMAKE_DEBUG_FLAGS} -g")
+set(CMAKE_CXX_FLAGS_RELEASE  "${CMAKE_RELEASE_FLAGS} -O3")
+set(CMAKE_BUILD_TYPE Release)
 
 add_executable(Memory main.cpp
         tui/TerminalHelper.cpp
